@@ -5,21 +5,28 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QDateTime>
+#include <String>
+using std::string;
 class SQL
 {
 public:
-    SQL(QString md);
+    SQL();
     ~SQL();
-    void setMode(QString md);
+    bool initialize();
+    void setMode(string md);
     bool login(QString user, QString code);
     bool exists(QString user);
     //QString getName(QString user);
-    //bool createUser(QString user, QString code, QString name = "");
+    bool createUser(QString user, QString code);
+    bool exists_room(QString room);
+    bool createRoom(QString room, QString code);
+    bool enterRoom(QString room, QString code);
     bool deleteUser(QString user);
     bool updateCode(QString user, QString code);
+    bool insertMSG(QString user, QString room, QString msg);
     //bool updateName(QString user, QString name);
 private:
-    SQL();
     const static QString HOST;
     const static int PORT;
     const static QString DB;
@@ -32,7 +39,7 @@ private:
     const static QString CREATE_TABLE_ROOM;
     const static QString CREATE_TABLE_RECORD;
     //const static QString DB_TABLE;
-    QString MODE;
+    string MODE;
     QSqlDatabase database;
     bool connectDB();
     bool createDB();

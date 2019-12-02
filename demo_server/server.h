@@ -8,12 +8,21 @@
 #include <sstream>
 #include <set>
 #include <map>
+#include "sql.h"
 using namespace std;
 
 
-class server
+class Server
 {
+private:
+    SQL* sql;
+    map<string, string> User;
+    //set<string> reg; // 防止重复登陆，下线时还需处理
+    map<string, set<string> > Room; // RoomAndItsMembers
+    map<string, string> rNP; // RoomNameAndPassword
 public:
+    Server();
+    ~Server();
     string communication(string msg, string& name, string&roomName, int& kind);
 };
 

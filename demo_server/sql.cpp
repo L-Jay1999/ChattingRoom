@@ -27,6 +27,7 @@ const QString SQL::CREATE_TABLE_RECORD =
         "create table if not exists " + TABLE_RECORD +
         "(\
           ID varchar(20) not null,\
+          Room varchar(20) not null,\
           Msg varchar(50),\
           Date datetime\
          )default charset = utf8";
@@ -34,8 +35,7 @@ const QString SQL::CREATE_TABLE_RECORD =
 
 SQL::SQL()
 {
-    connectDB();
-    createDB();
+
 }
 
 SQL::~SQL()
@@ -43,20 +43,26 @@ SQL::~SQL()
     database.close();
 }
 
-SQL::SQL(QString md)
+bool SQL::initialize()
 {
-    setMode(md);
-    SQL();
+    if(!MODE.empty()){
+        connectDB();
+        createDB();
+        return true;
+    }
+    else
+        qDebug() << "Error: The database does not initialize correctly.";
+    return false;
 }
 
-void SQL::setMode(QString md)
+void SQL::setMode(string md)
 {
     if(md == "Server")
-        MODE = "Server";
+        MODE = md;
     else if(md == "Client")
-        MODE = "Client";
+        MODE = md;
     else
-        qDebug() << "Error: The mode is incorrect. Default: Server";
+        qDebug() << "Error: The mode is incorrect.";
 }
 
 bool SQL::connectDB()
@@ -117,24 +123,22 @@ bool SQL::createDB()
     return true;
 }
 
-// bool SQL::createUser(QString user, QString code, QString name)
-// {
-//     QSqlQuery query;
-//     if(!name.size())
-//         query.prepare("insert into " + TABLE + " (ID,Code) VALUES (?,?)");
-//     else
-//         query.prepare("insert into " + TABLE + " (ID,Code,Name) VALUES (?,?,?)");
-//     query.addBindValue(user);
-//     query.addBindValue(code);
-//     if(name.size())
-//         query.addBindValue(name);
-//     if(query.exec())
-//         return true;
-//     else{
-//         qDebug() << query.lastError().text();
-//         return false;
-//     }
-// }
+bool SQL::createUser(QString user, QString code)
+{
+    if(MODE == "Server"){
+        QSqlQuery query;
+        query.prepare("insert into " + TABLE_USER + " (ID,Code) VALUES (?,?)");
+        query.addBindValue(user);
+        query.addBindValue(code);
+        if(query.exec())
+            return true;
+        else{
+            qDebug() << query.lastError().text();
+            return false;
+        }
+    }
+    return false;
+}
 
 bool SQL::deleteUser(QString user)
 {
@@ -217,6 +221,86 @@ bool SQL::login(QString user, QString code)
             else
                 return false;
         }
+        else{
+            qDebug() << query.lastError().text();
+            return false;
+        }
+    }
+    return false;
+}
+
+bool SQL::exists_room(QString room)
+{
+    if(MODE == "Server"){
+        QSqlQuery query;
+        query.prepare("select ID from " + TABLE_ROOM + " where ID = ?");
+        query.addBindValue(room);
+        if(query.exec()){
+            if(!query.size())
+                return false;
+            return true;
+        }
+        else{
+            qDebug() << query.lastError().text();
+            return false;
+        }
+    }
+    return false;
+}
+
+bool SQL::createRoom(QString room, QString code)
+{
+    if(MODE == "Server"){
+        QSqlQuery query;
+        query.prepare("insert into " + TABLE_ROOM + " (ID,Code) VALUES (?,?)");
+        query.addBindValue(room);
+        query.addBindValue(code);
+        if(query.exec())
+            return true;
+        else{
+            qDebug() << query.lastError().text();
+            return false;
+        }
+    }
+    return false;
+}
+
+bool SQL::enterRoom(QString room, QString code)
+{
+    if(MODE == "Server"){
+        QSqlQuery query;
+        query.prepare("select Code from " + TABLE_ROOM + " where ID = ?");
+        query.addBindValue(room);
+        if(query.exec()){
+            if(!query.size())
+                return false;
+            query.next();
+            if(query.value(0).toString() == code)
+                return true;
+            else
+                return false;
+        }
+        else{
+            qDebug() << query.lastError().text();
+            return false;
+        }
+    }
+    return false;
+}
+
+bool SQL::insertMSG(QString user, QString room, QString msg)
+{
+    if(MODE == "Server"){
+        QSqlQuery query;
+        query.prepare("insert into " + TABLE_RECORD + " (ID,Room,Msg,Date) VALUES (?,?,?,?)");
+        query.addBindValue(user);
+        query.addBindValue(room);
+        query.addBindValue(msg);
+        QDateTime current_date_time = QDateTime::currentDateTime();
+        QString current_time = current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+        query.addBindValue(current_time);
+        if(query.exec())
+            return true;
         else{
             qDebug() << query.lastError().text();
             return false;

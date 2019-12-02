@@ -13,9 +13,10 @@ using namespace std;
 
 class Controller
 {
-private:
-
+    Server* mySer;
 public:
+    Controller();
+    ~Controller();
     QByteArray opMsg(QByteArray, string&, string&, string&, int&);
 };
 
