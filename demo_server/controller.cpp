@@ -4,7 +4,7 @@ using namespace std;
 
 server mySer;
 
-QByteArray controller::opMsg(QByteArray input, string& name,
+QByteArray Controller::opMsg(QByteArray input, string& name,
                              string& roomName, string& YorN, int& kind){
     QString str1 = input;
     string str2 = str1.toStdString();

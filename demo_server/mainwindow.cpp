@@ -10,7 +10,7 @@ using namespace std;
 
 // 全局变量定义部分
 map<string, set<QTcpSocket*> > rN2Soc; //roomNameToSocket;
-controller myCon;
+Controller myCon;
 
 
 // 函数体部分

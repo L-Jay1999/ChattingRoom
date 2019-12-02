@@ -11,8 +11,10 @@
 #include "server.h"
 using namespace std;
 
-class controller
+class Controller
 {
+private:
+
 public:
     QByteArray opMsg(QByteArray, string&, string&, string&, int&);
 };
