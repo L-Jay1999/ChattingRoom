@@ -2,6 +2,7 @@
 #define REGISTERIN_H
 
 #include <QDialog>
+#include "ui_registerin.h"
 
 namespace Ui {
 class registerin;

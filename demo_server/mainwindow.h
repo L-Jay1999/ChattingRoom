@@ -13,6 +13,11 @@
 #include <set>
 #include "ui_mainwindow.h"
 #include "controller.h"
+
+using std::string;
+using std::cout;
+using std::endl;
+
 namespace Ui {
 class MainWindow;
 }

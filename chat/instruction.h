@@ -2,6 +2,7 @@
 #define INSTRUCTION_H
 
 #include <QDialog>
+#include "ui_instruction.h"
 
 namespace Ui {
 class instruction;

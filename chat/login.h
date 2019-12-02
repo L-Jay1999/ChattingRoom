@@ -2,8 +2,19 @@
 #define LOGIN_H
 
 #include <QDialog>
+#include <QLabel>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <string>
+#include <iostream>
 #include "clientdialog.h"
 #include "error.h"
+#include "ui_mainwindow.h"
+#include "ui_login.h"
+
+using std::string;
+using std::cout;
+using std::endl;
 
 namespace Ui {
 class login;
@@ -16,15 +27,9 @@ class login : public QDialog
 public:
     explicit login(QWidget *parent = nullptr);
     ~login();
-    clientDialog * new_client;
-    error *new_error;
+    clientDialog* new_client;
+    error* new_error;
 private slots:
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_lineEdit_2_inputRejected();
-
     void on_create_clicked();
 
     void on_exit_clicked();

@@ -3,15 +3,6 @@
  */
 
 #include "mainwindow.h"
-#include  <QDialog>
-#include "ui_mainwindow.h"
-#include "ui_clientdialog.h"
-#include <QLabel>
-#include <QTcpServer>
-#include <QTcpSocket>
-#include <string>
-#include <iostream>
-using namespace std;
 
 QTcpSocket  *tcpClient;
 string _name;

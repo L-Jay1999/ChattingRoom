@@ -1,5 +1,4 @@
 #include "server.h"
-using namespace std;
 
 Server::Server()
 {
@@ -65,9 +64,9 @@ string Server::communication(string input, string& name, string& roomName, int& 
             kind = 3;
             string temp = input.substr(2);
             stringstream s(temp);
-            s >> name >> roomName >> roomPassword;
-            QString qtemp1 = QString::fromStdString(name);
-            QString qtemp2 = QString::fromStdString(password);
+            s >> roomName >> roomPassword;
+            QString qtemp1 = QString::fromStdString(roomName);
+            QString qtemp2 = QString::fromStdString(roomPassword);
 //            if(!rNP.count(roomName))  // 此房间原来不存在，可以创建
 //            {
 //                rNP[roomName] = roomPassword;

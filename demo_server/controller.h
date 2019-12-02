@@ -9,7 +9,10 @@
 #include <string>
 #include <iostream>
 #include "server.h"
-using namespace std;
+
+using std::string;
+using std::cout;
+using std::endl;
 
 class Controller
 {

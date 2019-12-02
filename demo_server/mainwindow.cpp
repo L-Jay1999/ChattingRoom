@@ -6,8 +6,6 @@
 // 头函数引用部分
 #include "mainwindow.h"
 
-using namespace std;
-
 // 全局变量定义部分
 map<string, set<QTcpSocket*> > rN2Soc; //roomNameToSocket;
 Controller myCon;

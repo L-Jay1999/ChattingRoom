@@ -1,5 +1,5 @@
 #include "error.h"
-#include "ui_error.h"
+
 
 error::error(QWidget *parent) :
     QDialog(parent),

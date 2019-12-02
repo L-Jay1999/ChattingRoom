@@ -1,14 +1,4 @@
 ﻿#include "login.h"
-#include "ui_login.h"
-#include "mainwindow.h"
-#include  <QDialog>
-#include "ui_mainwindow.h"
-#include <QLabel>
-#include <QTcpServer>
-#include <QTcpSocket>
-#include <string>
-#include <iostream>
-using namespace std;
 
 
 extern QTcpSocket* tcpClient;

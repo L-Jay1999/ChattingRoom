@@ -1,18 +1,8 @@
 ﻿#include "clientdialog.h"
-#include "ui_clientdialog.h"
-#include <QLabel>
-#include <QTcpServer>
-#include <QTcpSocket>
-#include <string>
-#include <iostream>
-using namespace std;
-
 
 extern string _roomName;
 extern string _name;
 extern QTcpSocket  *tcpClient;
-
-
 
 clientDialog::clientDialog(QWidget *parent) :
     QDialog(parent),

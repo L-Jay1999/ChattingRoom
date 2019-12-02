@@ -2,6 +2,16 @@
 #define CLIENTDIALOG_H
 
 #include <QDialog>
+#include <QLabel>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <string>
+#include <iostream>
+#include "ui_clientdialog.h"
+
+using std::string;
+using std::cout;
+using std::endl;
 
 namespace Ui {
 class clientDialog;
@@ -17,8 +27,6 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
 
     void on_send_clicked();
 

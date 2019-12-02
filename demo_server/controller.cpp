@@ -1,7 +1,5 @@
 #include "controller.h"
 
-using namespace std;
-
 Controller::Controller()
 {
     mySer = new Server();

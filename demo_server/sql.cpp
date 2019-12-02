@@ -251,6 +251,8 @@ bool SQL::exists_room(QString room)
 bool SQL::createRoom(QString room, QString code)
 {
     if(MODE == "Server"){
+        qDebug() << room;
+        qDebug() << code;
         QSqlQuery query;
         query.prepare("insert into " + TABLE_ROOM + " (ID,Code) VALUES (?,?)");
         query.addBindValue(room);

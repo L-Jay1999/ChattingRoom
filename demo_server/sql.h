@@ -7,7 +7,9 @@
 #include <QSqlQuery>
 #include <QDateTime>
 #include <String>
+
 using std::string;
+
 class SQL
 {
 public:

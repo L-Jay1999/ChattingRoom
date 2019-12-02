@@ -9,8 +9,13 @@
 #include <set>
 #include <map>
 #include "sql.h"
-using namespace std;
 
+using std::string;
+using std::map;
+using std::set;
+using std::stringstream;
+using std::cout;
+using std::endl;
 
 class Server
 {
