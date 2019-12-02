@@ -1,12 +1,4 @@
 #include "server.h"
-#include <string>
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-#include <sstream>
-#include <set>
-#include <map>
 using namespace std;
 
 map<string, string> User;

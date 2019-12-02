@@ -7,6 +7,12 @@
 #include <QTcpSocket>
 #include <QHostInfo>
 #include <QList>
+#include <string>
+#include <iostream>
+#include <map>
+#include <set>
+#include "ui_mainwindow.h"
+#include "controller.h"
 namespace Ui {
 class MainWindow;
 }

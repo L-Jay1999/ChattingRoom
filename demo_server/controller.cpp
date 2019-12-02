@@ -1,13 +1,5 @@
 #include "controller.h"
-#include <QMainWindow>
-#include <QLabel>
-#include <QTcpServer>
-#include <QTcpSocket>
-#include <QHostInfo>
-#include <QList>
-#include <string>
-#include "server.h"
-#include <iostream>
+
 using namespace std;
 
 server mySer;

@@ -7,6 +7,8 @@
 #include <QHostInfo>
 #include <QList>
 #include <string>
+#include <iostream>
+#include "server.h"
 using namespace std;
 
 class controller
