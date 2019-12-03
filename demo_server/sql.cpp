@@ -29,7 +29,9 @@ const QString SQL::CREATE_TABLE_RECORD =
           ID varchar(20) not null,\
           Room varchar(20) not null,\
           Msg varchar(50),\
-          Date datetime\
+          Date datetime,\
+          foreign key(ID) references user(ID) on delete cascade on update cascade,\
+          foreign key(Room) references room(ID) on delete cascade on update cascade\
          )default charset = utf8";
 
 
