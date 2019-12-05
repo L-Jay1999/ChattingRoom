@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     setAutoFillBackground(true);
     QPalette pal = this->palette();
-    pal.setBrush(backgroundRole(), QPixmap("G:/back/main.jpg"));
+    pal.setBrush(backgroundRole(), QPixmap("D:/source/main.jpg"));
     setPalette(pal);                 //设置背景
 
     ui->setupUi(this);
@@ -46,9 +46,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton->setFlat(true);
     ui->dengLu->setFlat(true);
     ui->pushButton_3->setFlat(true);                     //按钮设成透明
-    ui->pushButton->setStyleSheet(tr("background-image: url(G:/back/button1.png);"));
-    ui->pushButton_3->setStyleSheet(tr("background-image: url(G:/back/button2.png);"));
-    ui->dengLu->setStyleSheet(tr("background-image: url(G:/back/button4.png);"));           //设置按钮图案
+    ui->pushButton->setStyleSheet(tr("background-image: url(D:/source/button1.png);"));
+    ui->pushButton_3->setStyleSheet(tr("background-image: url(D:/source/button2.png);"));
+    ui->dengLu->setStyleSheet(tr("background-image: url(D:/source/button4.png);"));           //设置按钮图案
 
     ui->userPassword->setEchoMode(QLineEdit::Password);
     tcpClient = new QTcpSocket; //创建socket变量

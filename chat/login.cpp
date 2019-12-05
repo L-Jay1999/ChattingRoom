@@ -12,7 +12,7 @@ login::login(QWidget *parent) :
 {
     setAutoFillBackground(true);
     QPalette pal = this->palette();
-    pal.setBrush(backgroundRole(), QPixmap("G:/back/main.jpg"));
+    pal.setBrush(backgroundRole(), QPixmap("D:/source/main.jpg"));
     setPalette(pal);             //加背景
    // this->showFullScreen();
     ui->setupUi(this);
@@ -23,9 +23,9 @@ login::login(QWidget *parent) :
     ui->pushButton->setFlat(true);
     ui->create->setFlat(true);
     ui->enter->setFlat(true);                     //按钮设成透明
-    ui->pushButton->setStyleSheet(tr("border-image: url(G:/back/button1.png);"));
-    ui->create->setStyleSheet(tr("border-image: url(G:/back/button2.png);"));
-    ui->enter->setStyleSheet(tr("border-image: url(G:/back/button4.png);"));           //设置按钮图案
+    ui->pushButton->setStyleSheet(tr("border-image: url(D:/source/button1.png);"));
+    ui->create->setStyleSheet(tr("border-image: url(D:/source/button2.png);"));
+    ui->enter->setStyleSheet(tr("border-image: url(D:/source/button4.png);"));           //设置按钮图案
 
     ui->roomPassword->setEchoMode(QLineEdit::Password);
     connect(tcpClient, SIGNAL(readyRead()), this, SLOT(MainWindow::onSocketReadyRead()));
