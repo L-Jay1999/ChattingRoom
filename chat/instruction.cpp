@@ -5,6 +5,10 @@ instruction::instruction(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::instruction)
 {
+    setAutoFillBackground(true);
+    QPalette pal = this->palette();
+    pal.setBrush(backgroundRole(), QPixmap("G:/back/main.jpg"));
+    setPalette(pal);                 //设置背景
     ui->setupUi(this);
 }
 

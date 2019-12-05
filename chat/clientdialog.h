@@ -30,11 +30,18 @@ private slots:
 
     void on_send_clicked();
 
+    void on_input_textChanged();
+
 public:
     Ui::clientDialog *ui;
 
+
+protected:
+    bool eventFilter(QObject *target, QEvent *event);//事件过滤器
+
 signals:
     void sendsignal();
+    //void act();
 };
 
 #endif // CLIENTDIALOG_H
