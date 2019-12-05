@@ -11,7 +11,7 @@
 #include "error.h"
 #include "ui_mainwindow.h"
 #include "ui_login.h"
-
+#include "regerror.h"
 using std::string;
 using std::cout;
 using std::endl;
@@ -29,6 +29,8 @@ public:
     ~login();
     clientDialog* new_client;
     error* new_error;
+     regerror* new_regerror;
+
 private slots:
     void on_create_clicked();
 

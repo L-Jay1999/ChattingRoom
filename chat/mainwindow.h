@@ -15,7 +15,7 @@
 #include "error.h"
 #include "ui_mainwindow.h"
 #include "ui_clientdialog.h"
-
+#include "regerror.h"
 using std::string;
 using std::cout;
 using std::endl;
@@ -36,6 +36,7 @@ public:
     registerin* new_reg;
     instruction* new_ins;
     error* new_error;
+    regerror* new_regerror;
 
 private slots:
     void on_pushButton_clicked();

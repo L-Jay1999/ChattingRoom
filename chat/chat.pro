@@ -31,7 +31,8 @@ SOURCES += \
     login.cpp \
     instruction.cpp \
     registerin.cpp \
-    error.cpp
+    error.cpp \
+    regerror.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     login.h \
     instruction.h \
     registerin.h \
-    error.h
+    error.h \
+    regerror.h
 
 FORMS += \
         mainwindow.ui \
@@ -47,7 +49,8 @@ FORMS += \
     login.ui \
     instruction.ui \
     registerin.ui \
-    error.ui
+    error.ui \
+    regerror.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
