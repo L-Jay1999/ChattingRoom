@@ -12,7 +12,7 @@ clientDialog::clientDialog(QWidget *parent) :
 {
     setAutoFillBackground(true);
     QPalette pal = this->palette();
-    pal.setBrush(backgroundRole(), QPixmap("D:/source/chat.png"));
+    pal.setBrush(backgroundRole(), QPixmap("chat.png"));
     setPalette(pal);             //加背景
    // this->showFullScreen();
      this->setFixedSize( 800,700);
