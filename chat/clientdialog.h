@@ -32,6 +32,7 @@ private slots:
 
     //void on_input_textChanged();
 
+    void RoundRect();
 public:
     Ui::clientDialog *ui;
 

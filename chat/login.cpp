@@ -1,10 +1,21 @@
 ﻿#include "login.h"
-
+#include <QBitmap>
+#include <QPainter>
 
 extern QTcpSocket* tcpClient;
 extern string _name;
 extern string _input_roomName;
 
+void login::RoundRect(){                  //将窗口设为圆角
+    QBitmap bmp(this->size());
+    bmp.fill(this,0,0);
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
+    setMask(bmp);
+}
 
 login::login(QWidget *parent) :
     QDialog(parent),
@@ -14,9 +25,17 @@ login::login(QWidget *parent) :
     QPalette pal = this->palette();
     pal.setBrush(backgroundRole(), QPixmap("main.jpg"));
     setPalette(pal);             //加背景
-   // this->showFullScreen();
+    this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
 
+    QFont font( "Comic Sans MS",15);
+    ui->label->setFont(font);
+    ui->label_2->setFont(font);
+    ui->label_3->setFont(font);
+    ui->label_4->setFont(font);
+    ui->label_5->setFont(font);
+
+    ui->exit->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->create->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->enter->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");      //按钮设成圆角
@@ -26,8 +45,11 @@ login::login(QWidget *parent) :
     ui->pushButton->setStyleSheet(tr("border-image: url(button1.png);"));
     ui->create->setStyleSheet(tr("border-image: url(button2.png);"));
     ui->enter->setStyleSheet(tr("border-image: url(button4.png);"));           //设置按钮图案
+    ui->roomPassword->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
+    ui->roomName->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");      //设置显示框
 
-    ui->roomPassword->setEchoMode(QLineEdit::Password);
+    ui->roomPassword->setEchoMode(QLineEdit::Password);         //密码显示
+    RoundRect();
     connect(tcpClient, SIGNAL(readyRead()), this, SLOT(MainWindow::onSocketReadyRead()));
 }
 
@@ -45,7 +67,7 @@ void login::on_exit_clicked()
 
 void login::on_enter_clicked()
 {
-    QString msg = ui->roomName->toPlainText();
+    QString msg = ui->roomName->text();
     QString msg2 = ui->roomPassword->text();
     _input_roomName = msg.toStdString();
 
@@ -59,7 +81,7 @@ void login::on_enter_clicked()
 
 void login::on_create_clicked()
 {
-    QString msg = ui->roomName->toPlainText();
+    QString msg = ui->roomName->text();
     QString msg2 = ui->roomPassword->text();
     _input_roomName = msg.toStdString();
     string password=msg2.toStdString();
