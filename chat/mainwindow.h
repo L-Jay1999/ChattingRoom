@@ -42,7 +42,7 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_3_clicked();
-
+    void RoundRect();
 private:
     Ui::MainWindow *ui;
 
@@ -63,6 +63,7 @@ private slots:
     //void on_connect_clicked();
     //断开连接
     //void on_disconnect_clicked();
+    void on_quit_clicked();
     //发送消息
     //void on_send_clicked();
     void on_dengLu_clicked();

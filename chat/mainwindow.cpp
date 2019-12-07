@@ -12,6 +12,8 @@
 #include <QTextEdit>
 #include <QGridLayout>
 #include <QFont>
+#include <QBitmap>
+#include <QPainter>
 
 QTcpSocket  *tcpClient;
 string _name;
@@ -20,6 +22,16 @@ string _roomName;
 string _input_roomName;
 
 
+void MainWindow::RoundRect(){                  //将窗口设为圆角
+    QBitmap bmp(this->size());
+    bmp.fill(this,0,0);
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
+    setMask(bmp);
+}
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -30,10 +42,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QPalette pal = this->palette();
     pal.setBrush(backgroundRole(), QPixmap("main.jpg"));
     setPalette(pal);                 //设置背景
-
+    this->setStyleSheet("QMainWindow{border-radius:15px;}");
+    this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
     //设置标签字体，第一个参数是字体（微软雅黑），第二个是字体大小(单位为pt)，第三个是加粗（50代表正常）
-    QFont font( "Comic Sans MS",20);
+    QFont font( "Comic Sans MS",15);
     ui->lreg->setFont(font);
     ui->llog->setFont(font);
     ui->lcode->setFont(font);
@@ -42,15 +55,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->dengLu->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-    ui->pushButton_3->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");      //按钮设成圆角
+    ui->pushButton_3->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
+    ui->quit->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");  //按钮设成圆角
+
     ui->pushButton->setFlat(true);
     ui->dengLu->setFlat(true);
     ui->pushButton_3->setFlat(true);                     //按钮设成透明
-    ui->pushButton->setStyleSheet(tr("background-image: url(button1.png);"));
-    ui->pushButton_3->setStyleSheet(tr("background-image: url(button2.png);"));
-    ui->dengLu->setStyleSheet(tr("background-image: url(button4.png);"));           //设置按钮图案
+    ui->pushButton->setStyleSheet(tr("border-image: url(button1.png);"));
+    ui->pushButton_3->setStyleSheet(tr("border-image: url(button2.png);"));
+    ui->dengLu->setStyleSheet(tr("border-image: url(button4.png);"));           //设置按钮图案
+    ui->userName ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
+    ui->userPassword ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
 
-    ui->userPassword->setEchoMode(QLineEdit::Password);
+    ui->userPassword->setEchoMode(QLineEdit::Password);                     //隐藏密码
+    RoundRect();
+
     tcpClient = new QTcpSocket; //创建socket变量
     connect(tcpClient, SIGNAL(connected()), this, SLOT(onConnected()));
     connect(tcpClient, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
@@ -67,7 +86,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_dengLu_clicked()
 {
-    QString msg = ui->userName->toPlainText();
+    QString msg = ui->userName->text();
     QString msg2 = ui->userPassword->text();
     _input_name = msg.toStdString();
     msg = "SD" + msg + " " + msg2;
@@ -80,7 +99,7 @@ void MainWindow::on_dengLu_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString msg = ui->userName->toPlainText();
+    QString msg = ui->userName->text();
     QString msg2 = ui->userPassword->text();
     _input_name = msg.toStdString();
     string password=msg2.toStdString();
@@ -169,3 +188,8 @@ void MainWindow::onDisconnected() {
 }
 
 
+
+void MainWindow::on_quit_clicked()
+{
+    this->close();
+}

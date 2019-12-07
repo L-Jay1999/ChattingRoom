@@ -38,6 +38,8 @@ private slots:
 
     void on_enter_clicked();
 
+    void RoundRect();
+
 private:
     Ui::login *ui;
 
