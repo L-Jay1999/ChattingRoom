@@ -28,15 +28,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     controller.cpp \
-    server.cpp
+    server.cpp \
+    sql.cpp
 
 HEADERS += \
         mainwindow.h \
     controller.h \
-    server.h
+    server.h \
+    sql.h
 
 FORMS += \
         mainwindow.ui
+
+QT += sql
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

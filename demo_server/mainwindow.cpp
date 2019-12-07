@@ -5,17 +5,10 @@
 
 // 头函数引用部分
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "controller.h"
-#include <string>
-#include <iostream>
-#include <map>
-#include <set>
-using namespace std;
 
 // 全局变量定义部分
 map<string, set<QTcpSocket*> > rN2Soc; //roomNameToSocket;
-controller myCon;
+Controller myCon;
 
 
 // 函数体部分

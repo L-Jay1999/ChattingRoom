@@ -7,11 +7,19 @@
 #include <QHostInfo>
 #include <QList>
 #include <string>
-using namespace std;
+#include <iostream>
+#include "server.h"
 
-class controller
+using std::string;
+using std::cout;
+using std::endl;
+
+class Controller
 {
+    Server* mySer;
 public:
+    Controller();
+    ~Controller();
     QByteArray opMsg(QByteArray, string&, string&, string&, int&);
 };
 

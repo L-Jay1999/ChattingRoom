@@ -1,20 +1,18 @@
 #include "server.h"
-#include <string>
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-#include <sstream>
-#include <set>
-#include <map>
-using namespace std;
 
-map<string, string> User;
-//set<string> reg; // 防止重复登陆，下线时还需处理
-map<string, set<string> > Room; // RoomAndItsMembers
-map<string, string> rNP; // RoomNameAndPassword
+Server::Server()
+{
+    sql = new SQL();
+    sql->setMode("Server");
+    sql->initialize();
+}
 
-string server::communication(string input, string& name, string& roomName, int& kind)
+Server::~Server()
+{
+    delete sql;
+}
+
+string Server::communication(string input, string& name, string& roomName, int& kind)
 {
     string password, roomPassword;
     if(input[0] == 'S'){
@@ -24,8 +22,13 @@ string server::communication(string input, string& name, string& roomName, int& 
             string temp = input.substr(2);
             stringstream s(temp);
             s >> name >> password;
-            if(User.count(name) && User[name] == password)
-            {
+//            if(User.count(name) && User[name] == password)
+//            {
+//                return "YL";
+//            }
+            QString qtemp1 = QString::fromStdString(name);
+            QString qtemp2 = QString::fromStdString(password);
+            if(sql->exists(qtemp1)&&sql->login(qtemp1,qtemp2)){
                 return "YL";
             }
             else
@@ -39,9 +42,15 @@ string server::communication(string input, string& name, string& roomName, int& 
             string temp = input.substr(2);
             stringstream s(temp);
             s >> name >> password;
-            if(!User.count(name))
-            {
-                User[name] = password;
+//            if(!User.count(name))
+//            {
+//                User[name] = password;
+//                return "YL";
+//            }
+            QString qtemp1 = QString::fromStdString(name);
+            QString qtemp2 = QString::fromStdString(password);
+            if(!sql->exists(qtemp1)){
+                sql->createUser(qtemp1, qtemp2);
                 return "YL";
             }
             else
@@ -55,10 +64,17 @@ string server::communication(string input, string& name, string& roomName, int& 
             kind = 3;
             string temp = input.substr(2);
             stringstream s(temp);
-            s >> name >> roomName >> roomPassword;
-            if(!rNP.count(roomName))  // 此房间原来不存在，可以创建
-            {
-                rNP[roomName] = roomPassword;
+            s >> roomName >> roomPassword;
+            QString qtemp1 = QString::fromStdString(roomName);
+            QString qtemp2 = QString::fromStdString(roomPassword);
+//            if(!rNP.count(roomName))  // 此房间原来不存在，可以创建
+//            {
+//                rNP[roomName] = roomPassword;
+//                Room[roomName].insert(name);
+//                return "YD";
+//            }
+            if(!sql->exists_room(qtemp1)){
+                sql->createRoom(qtemp1, qtemp2);
                 Room[roomName].insert(name);
                 return "YD";
             }
@@ -73,8 +89,14 @@ string server::communication(string input, string& name, string& roomName, int& 
             string temp = input.substr(2);
             stringstream s(temp);
             s >> name >> roomName >> roomPassword;
-            if(rNP.count(roomName) && rNP[roomName] == roomPassword)
-            {
+            QString qtemp1 = QString::fromStdString(roomName);
+            QString qtemp2 = QString::fromStdString(roomPassword);
+//            if(rNP.count(roomName) && rNP[roomName] == roomPassword)
+//            {
+//                Room[roomName].insert(name);
+//                return "YD";
+//            }
+            if(sql->exists_room(qtemp1) && sql->enterRoom(qtemp1, qtemp2)){
                 Room[roomName].insert(name);
                 return "YD";
             }
@@ -91,6 +113,10 @@ string server::communication(string input, string& name, string& roomName, int& 
         stringstream s(temp);
         s >> name >> roomName >> input;
         string ret = "[" + name + "] : " + input;
+        QString qtemp1 = QString::fromStdString(name);
+        QString qtemp2 = QString::fromStdString(roomName);
+        QString qtemp3 = QString::fromStdString(input);
+        sql->insertMSG(qtemp1, qtemp2, qtemp3);
         return ret;
     }
 }
