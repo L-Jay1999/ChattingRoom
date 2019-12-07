@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::instruction *ui;
+    void RoundRect();
 
 signals:
     void sendsignal();
