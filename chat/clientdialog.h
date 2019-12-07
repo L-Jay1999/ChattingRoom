@@ -30,7 +30,7 @@ private slots:
 
     void on_send_clicked();
 
-    void on_input_textChanged();
+    //void on_input_textChanged();
 
 public:
     Ui::clientDialog *ui;
