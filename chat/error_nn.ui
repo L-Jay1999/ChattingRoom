@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>regerror</class>
- <widget class="QDialog" name="regerror">
+ <class>error_NN</class>
+ <widget class="QDialog" name="error_NN">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
+    <width>400</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="warn">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>-10</y>
-     <width>511</width>
+     <width>371</width>
      <height>71</height>
     </rect>
    </property>
    <property name="text">
-    <string>The username and password can not be blank</string>
+    <string>The room name has been used</string>
    </property>
   </widget>
  </widget>

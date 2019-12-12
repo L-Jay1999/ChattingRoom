@@ -7,6 +7,7 @@
 extern string _roomName;
 extern string _name;
 extern QTcpSocket  *tcpClient;
+extern  QString clientinfo;
 
 void clientDialog::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
@@ -26,10 +27,18 @@ clientDialog::clientDialog(QWidget *parent) :
     setAutoFillBackground(true);
     QPalette pal = this->palette();
     pal.setBrush(backgroundRole(), QPixmap("chat.png"));
-    setPalette(pal);             //加背景
+  //  setPalette(pal);             //加背景
    // this->showFullScreen();
+
       ui->setupUi(this);
-    QPalette pl = ui->output->palette();
+      ui->send->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
+      ui->shuaxin->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
+       ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;"); //按钮设成圆角
+       QFont font( "Comic Sans MS",13);
+       ui->send->setFont(font);
+       ui->shuaxin->setFont(font);
+       ui->pushButton->setFont(font);
+   QPalette pl = ui->output->palette();
     pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
     ui->output->setPalette(pl);
    pl = ui->input->palette();
@@ -39,7 +48,8 @@ clientDialog::clientDialog(QWidget *parent) :
     ui->input->setFocusPolicy(Qt::StrongFocus);
     ui->input->setFocus();
     ui->input->installEventFilter(this);//设置完后自动调用其eventFilter函数
-    RoundRect();
+
+
 
 }
 
@@ -84,6 +94,20 @@ bool clientDialog::eventFilter(QObject *target, QEvent *event)      //回车键�
         }
     }
     return QDialog::eventFilter(target,event);
+}
+
+
+
+void clientDialog::on_shuaxin_clicked()
+{
+    string msg1 = "U"+_roomName;
+    QString msg = QString::fromStdString(msg1);
+    QByteArray  str = msg.toUtf8();
+    str.append('\n');
+    string temp = str.toStdString();
+    cout << "[out Dialog]" << temp << endl;
+    tcpClient->write(str);
+    ui->chengyuan->setText(clientinfo);
 }
 
 

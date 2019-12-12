@@ -5,9 +5,9 @@ error::error(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::error)
 {
-    this->setFixedSize( 250,80);
+    this->setFixedSize( 400,80);
     ui->setupUi(this);
-    QFont font( "KaiTi",15);
+    QFont font( "Comic Sans MS",15);
     ui->warn->setFont(font);
 }
 

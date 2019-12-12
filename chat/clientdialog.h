@@ -30,9 +30,11 @@ private slots:
 
     void on_send_clicked();
 
-    void on_input_textChanged();
+    //void on_input_textChanged();
 
     void RoundRect();
+    void on_shuaxin_clicked();
+
 public:
     Ui::clientDialog *ui;
 
@@ -42,7 +44,6 @@ protected:
 
 signals:
     void sendsignal();
-    //void act();
 };
 
 #endif // CLIENTDIALOG_H

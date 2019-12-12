@@ -12,6 +12,8 @@
 #include "ui_mainwindow.h"
 #include "ui_login.h"
 #include "regerror.h"
+#include "room.h"
+
 using std::string;
 using std::cout;
 using std::endl;
@@ -29,7 +31,8 @@ public:
     ~login();
     clientDialog* new_client;
     error* new_error;
-     regerror* new_regerror;
+    regerror* new_regerror;
+    room* new_room;
 
 private slots:
     void on_create_clicked();
@@ -39,6 +42,8 @@ private slots:
     void on_enter_clicked();
 
     void RoundRect();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::login *ui;

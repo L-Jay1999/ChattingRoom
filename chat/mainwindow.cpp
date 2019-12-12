@@ -20,7 +20,8 @@ string _name;
 string _input_name;
 string _roomName;
 string _input_roomName;
-
+QString  roominfo;
+QString  clientinfo;
 
 void MainWindow::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
@@ -38,12 +39,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //ui->label->setStyleSheet("background:transparent;border:2px solid red;");
     setAutoFillBackground(true);
     QPalette pal = this->palette();
     pal.setBrush(backgroundRole(), QPixmap("main.jpg"));
     setPalette(pal);                 //设置背景
     this->setStyleSheet("QMainWindow{border-radius:15px;}");
-    this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
+    //this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
     //设置标签字体，第一个参数是字体（微软雅黑），第二个是字体大小(单位为pt)，第三个是加粗（50代表正常）
     QFont font( "Comic Sans MS",15);
@@ -51,7 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->llog->setFont(font);
     ui->lcode->setFont(font);
     ui->luse->setFont(font);
-    ui->lins->setFont(font);      //设置字体
+    ui->lins->setFont(font);
+    QFont   nfont( "Comic Sans MS",13);
+    ui->exit->setFont(nfont);//设置字体
 
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->dengLu->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
@@ -66,9 +70,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->dengLu->setStyleSheet(tr("border-image: url(button4.png);"));           //设置按钮图案
     ui->userName ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->userPassword ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
+    ui->exit ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
 
     ui->userPassword->setEchoMode(QLineEdit::Password);                     //隐藏密码
-    RoundRect();
+   // RoundRect();
 
     tcpClient = new QTcpSocket; //创建socket变量
     connect(tcpClient, SIGNAL(connected()), this, SLOT(onConnected()));
@@ -140,8 +145,7 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             new_login->show();
 
         }
-        else
-        if(str2 == "YD\n"){
+        else if(str2 == "YD\n"){
             _roomName = _input_roomName;
             this->hide();
             new_login->hide();
@@ -149,13 +153,33 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             connect(new_client,SIGNAL(sendsignal()),new_login,SLOT(show()));
             new_client->show();
         }
-        else
-        if(str2[0] == '['){
+        else if(str2[0] == '['){
             new_client->ui->output->appendPlainText(input);
         }
-        else{
+        else if(str2 == "NP\n"){
             new_error=new error;
+            cout << "password wrong" << endl;
             new_error->show();
+        }
+        else if(str2 == "NO\n"){
+            cout << "already online" << endl;
+            new_nn=new error_NN;
+            new_nn->show();
+        }
+        else if(str2 == "NN\n"){
+            cout << "room name already" << endl;
+            new_no=new error_No;
+            new_no->show();
+        }
+        else if(str2[0] == 'U'){
+            cout << "[成员输出]" << str2 << endl;  //////////////////////////////
+            //new_client->ui->chengyuan->setText(QString::fromStdString((str2.substr(1))));
+            clientinfo=str1;
+        }
+        else if(str2[0] == 'R'){
+            //str2显示到room.ui上
+            cout << str2 << endl;
+            roominfo=str1;
         }
     }
 
@@ -190,6 +214,16 @@ void MainWindow::onDisconnected() {
 
 
 void MainWindow::on_quit_clicked()
+{
+    this->close();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    this->close();
+}
+
+void MainWindow::on_exit_clicked()
 {
     this->close();
 }

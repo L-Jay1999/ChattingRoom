@@ -22,7 +22,9 @@ instruction::instruction(QWidget *parent) :
     pal.setBrush(backgroundRole(), QPixmap("main.jpg"));
     setPalette(pal);                 //设置背景
     ui->setupUi(this);
-    RoundRect();
+    //RoundRect();
+    QFont font( "华文行楷",18);
+    ui->textEdit->setFont(font);
 }
 
 instruction::~instruction()
