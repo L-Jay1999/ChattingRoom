@@ -5,7 +5,7 @@ regerror::regerror(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::regerror)
 {
-    this->setFixedSize(500,80);
+    this->setFixedSize(1000,80);
     ui->setupUi(this);
     QFont font("Comic Sans MS",15);
     ui->warn->setFont(font);
