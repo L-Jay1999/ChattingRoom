@@ -5,12 +5,14 @@
 #include <QLabel>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QBitmap>
+#include <QPainter>
 #include <string>
 #include <iostream>
+
 #include "clientdialog.h"
 #include "error.h"
 #include "ui_mainwindow.h"
-#include "ui_login.h"
 #include "regerror.h"
 #include "room.h"
 

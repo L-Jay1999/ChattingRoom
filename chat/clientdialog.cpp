@@ -1,13 +1,47 @@
 ﻿#include "clientdialog.h"
-#include <QShortcut>
-#include<QKeyEvent>
-#include <QBitmap>
-#include <QPainter>
+#include "ui_clientdialog.h"
 
 extern string _roomName;
 extern string _name;
-extern QTcpSocket  *tcpClient;
-extern  QString clientinfo;
+extern QTcpSocket *tcpClient;
+extern QString clientinfo;
+extern QString chat_pic;
+
+clientDialog::clientDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::clientDialog)
+{
+    setAutoFillBackground(true);
+    QPalette pal = this->palette();
+
+    pal.setBrush(backgroundRole(), QPixmap(chat_pic));
+  //  setPalette(pal);             //加背景
+   // this->showFullScreen();
+
+    ui->setupUi(this);
+    ui->send->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
+    ui->shuaxin->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
+    ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;"); //按钮设成圆角
+    QFont font("Comic Sans MS",13);
+    ui->send->setFont(font);
+    ui->shuaxin->setFont(font);
+    ui->pushButton->setFont(font);
+    QPalette pl = ui->output->palette();
+    pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
+    ui->output->setPalette(pl);
+    pl = ui->input->palette();
+    pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
+   // QShortcut *key=new QShortcut(QKeySequence(Qt::Key_Return),this);//创建一个快捷键"Key_Return"键
+    //connect(key,SIGNAL(act()),this,SLOT(槽函数));//连接到指定槽函数
+    ui->input->setFocusPolicy(Qt::StrongFocus);
+    ui->input->setFocus();
+    ui->input->installEventFilter(this);//设置完后自动调用其eventFilter函数
+}
+
+clientDialog::~clientDialog()
+{
+    delete ui;
+}
 
 void clientDialog::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
@@ -18,44 +52,6 @@ void clientDialog::RoundRect(){                  //将窗口设为圆角
     p.setRenderHint(QPainter::Antialiasing);
     p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
     setMask(bmp);
-}
-
-clientDialog::clientDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::clientDialog)
-{
-    setAutoFillBackground(true);
-    QPalette pal = this->palette();
-    pal.setBrush(backgroundRole(), QPixmap("chat.png"));
-  //  setPalette(pal);             //加背景
-   // this->showFullScreen();
-
-      ui->setupUi(this);
-      ui->send->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-      ui->shuaxin->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-       ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;"); //按钮设成圆角
-       QFont font( "Comic Sans MS",13);
-       ui->send->setFont(font);
-       ui->shuaxin->setFont(font);
-       ui->pushButton->setFont(font);
-   QPalette pl = ui->output->palette();
-    pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
-    ui->output->setPalette(pl);
-   pl = ui->input->palette();
-    pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
-   // QShortcut *key=new QShortcut(QKeySequence(Qt::Key_Return),this);//创建一个快捷键"Key_Return"键
-    //connect(key,SIGNAL(act()),this,SLOT(槽函数));//连接到指定槽函数
-    ui->input->setFocusPolicy(Qt::StrongFocus);
-    ui->input->setFocus();
-    ui->input->installEventFilter(this);//设置完后自动调用其eventFilter函数
-
-
-
-}
-
-clientDialog::~clientDialog()
-{
-    delete ui;
 }
 
 void clientDialog::on_pushButton_clicked()
@@ -95,8 +91,6 @@ bool clientDialog::eventFilter(QObject *target, QEvent *event)      //回车键�
     }
     return QDialog::eventFilter(target,event);
 }
-
-
 
 void clientDialog::on_shuaxin_clicked()
 {

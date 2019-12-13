@@ -2,7 +2,8 @@
 #define INSTRUCTION_H
 
 #include <QDialog>
-#include "ui_instruction.h"
+#include <QBitmap>
+#include <QPainter>
 
 namespace Ui {
 class instruction;

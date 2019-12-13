@@ -5,9 +5,9 @@ error_NN::error_NN(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::error_NN)
 {
-    this->setFixedSize( 400,80);
+    this->setFixedSize(400,80);
     ui->setupUi(this);
-    QFont font( "Comic Sans MS",15);
+    QFont font("Comic Sans MS",15);
     ui->label->setFont(font);
 }
 

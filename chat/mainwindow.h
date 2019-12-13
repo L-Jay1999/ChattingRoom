@@ -6,15 +6,21 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDialog>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QTextEdit>
+#include <QGridLayout>
+#include <QFont>
+#include <QBitmap>
+#include <QPainter>
 #include <string>
 #include <iostream>
+
 #include "clientdialog.h"
 #include "login.h"
 #include "registerin.h"
 #include "instruction.h"
 #include "error.h"
-#include "ui_mainwindow.h"
-#include "ui_clientdialog.h"
 #include "regerror.h"
 #include "error_nn.h"
 #include "error_no.h"
@@ -42,12 +48,11 @@ public:
     instruction* new_ins;
     error* new_error;
     regerror* new_regerror;
-   error_NN*  new_nn;
-   error_No* new_no;
+    error_NN*  new_nn;
+    error_No* new_no;
 
 private slots:
     void on_pushButton_clicked();
-
     void on_pushButton_3_clicked();
     void RoundRect();
 private:

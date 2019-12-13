@@ -1,4 +1,5 @@
 ﻿#include "registerin.h"
+#include "ui_registerin.h"
 
 registerin::registerin(QWidget *parent) :
     QDialog(parent),

@@ -1,10 +1,10 @@
 ﻿#include "login.h"
-#include <QBitmap>
-#include <QPainter>
+#include "ui_login.h"
 
 extern QTcpSocket* tcpClient;
 extern string _name;
 extern string _input_roomName;
+extern QString main_pic;
 
 void login::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
@@ -23,18 +23,18 @@ login::login(QWidget *parent) :
 {
     setAutoFillBackground(true);
     QPalette pal = this->palette();
-    pal.setBrush(backgroundRole(), QPixmap("main.jpg"));
+    pal.setBrush(backgroundRole(), QPixmap(main_pic));
     setPalette(pal);             //加背景
     //this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
 
-    QFont font( "Comic Sans MS",15);
+    QFont font("Comic Sans MS",15);
     ui->label->setFont(font);
     ui->label_2->setFont(font);
     ui->label_3->setFont(font);
     ui->label_4->setFont(font);
     ui->label_5->setFont(font);
-    QFont nfont( "Comic Sans MS",13);
+    QFont nfont("Comic Sans MS",13);
     ui->exit->setFont(nfont);
 
     ui->exit->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
@@ -44,9 +44,14 @@ login::login(QWidget *parent) :
     ui->pushButton->setFlat(true);
     ui->create->setFlat(true);
     ui->enter->setFlat(true);                     //按钮设成透明
-    ui->pushButton->setStyleSheet(tr("border-image: url(button1.png);"));
-    ui->create->setStyleSheet(tr("border-image: url(button2.png);"));
-    ui->enter->setStyleSheet(tr("border-image: url(button4.png);"));           //设置按钮图案
+
+    QString sheet1 = "border-image: url(" + button1_pic + ");";
+    QString sheet2 = "border-image: url(" + button2_pic + ");";
+    QString sheet3 = "border-image: url(" + button4_pic + ");";
+    ui->pushButton->setStyleSheet(sheet1);
+    ui->create->setStyleSheet(sheet2);
+    ui->enter->setStyleSheet(sheet3);           //设置按钮图案
+
     ui->roomPassword->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->roomName->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px"); //设置显示框
 

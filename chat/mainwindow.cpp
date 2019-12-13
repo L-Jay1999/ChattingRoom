@@ -4,36 +4,22 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDialog>
-//添加头文件
-#include <QLabel>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QTextEdit>
-#include <QGridLayout>
-#include <QFont>
-#include <QBitmap>
-#include <QPainter>
+#include "ui_clientdialog.h"
 
-QTcpSocket  *tcpClient;
+QTcpSocket *tcpClient;
 string _name;
 string _input_name;
 string _roomName;
 string _input_roomName;
-QString  roominfo;
-QString  clientinfo;
+QString roominfo;
+QString clientinfo;
 
-void MainWindow::RoundRect(){                  //将窗口设为圆角
-    QBitmap bmp(this->size());
-    bmp.fill(this,0,0);
-    QPainter p(&bmp);
-    p.setPen(Qt::NoPen);
-    p.setBrush(Qt::black);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
-    setMask(bmp);
-}
-
+const QString button1_pic = "./source/button1.png";
+const QString button2_pic = "./source/button2.png";
+const QString button3_pic = "./source/button3.png";
+const QString button4_pic = "./source/button4.png";
+const QString main_pic = "./source/main.jpg";
+const QString chat_pic = "./source/chat.png";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,19 +28,20 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->label->setStyleSheet("background:transparent;border:2px solid red;");
     setAutoFillBackground(true);
     QPalette pal = this->palette();
-    pal.setBrush(backgroundRole(), QPixmap("main.jpg"));
+
+    pal.setBrush(backgroundRole(), QPixmap(main_pic));
     setPalette(pal);                 //设置背景
     this->setStyleSheet("QMainWindow{border-radius:15px;}");
     //this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
     //设置标签字体，第一个参数是字体（微软雅黑），第二个是字体大小(单位为pt)，第三个是加粗（50代表正常）
-    QFont font( "Comic Sans MS",15);
+    QFont font("Comic Sans MS",15);
     ui->lreg->setFont(font);
     ui->llog->setFont(font);
     ui->lcode->setFont(font);
     ui->luse->setFont(font);
     ui->lins->setFont(font);
-    QFont   nfont( "Comic Sans MS",13);
+    QFont nfont("Comic Sans MS",13);
     ui->exit->setFont(nfont);//设置字体
 
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
@@ -65,9 +52,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton->setFlat(true);
     ui->dengLu->setFlat(true);
     ui->pushButton_3->setFlat(true);                     //按钮设成透明
-    ui->pushButton->setStyleSheet(tr("border-image: url(button1.png);"));
-    ui->pushButton_3->setStyleSheet(tr("border-image: url(button2.png);"));
-    ui->dengLu->setStyleSheet(tr("border-image: url(button4.png);"));           //设置按钮图案
+
+    QString sheet1 = "border-image: url(" + button1_pic + ");";
+    QString sheet2 = "border-image: url(" + button2_pic + ");";
+    QString sheet3 = "border-image: url(" + button4_pic + ");";
+    ui->pushButton->setStyleSheet(sheet1);
+    ui->pushButton_3->setStyleSheet(sheet2);
+    ui->dengLu->setStyleSheet(sheet3);           //设置按钮图案
+
     ui->userName ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->userPassword ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->exit ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
@@ -86,7 +78,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete tcpClient;
+    delete new_client;
+    delete new_login;
+    delete new_reg;
+    delete new_ins;
+    delete new_error;
+    delete new_regerror;
+    delete new_nn;
+    delete new_no;
     delete ui;
+}
+
+void MainWindow::RoundRect(){                  //将窗口设为圆角
+    QBitmap bmp(this->size());
+    bmp.fill(this,0,0);
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
+    setMask(bmp);
 }
 
 void MainWindow::on_dengLu_clicked()
@@ -108,8 +120,8 @@ void MainWindow::on_pushButton_clicked()
     QString msg2 = ui->userPassword->text();
     _input_name = msg.toStdString();
     string password=msg2.toStdString();
-    if(_input_name==""||password==""){
-         new_regerror=new   regerror;
+    if(_input_name == ""||password == ""){
+         new_regerror=new regerror;
          new_regerror->show();
     }                                                   //判断密码是否为空
     else{
@@ -118,7 +130,8 @@ void MainWindow::on_pushButton_clicked()
         str.append('\n');
         string temp = str.toStdString();
         cout << "[out]" << temp << endl;
-        tcpClient->write(str);}
+        tcpClient->write(str);
+    }
 
 }
 

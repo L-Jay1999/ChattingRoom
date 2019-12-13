@@ -5,9 +5,12 @@
 #include <QLabel>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QShortcut>
+#include <QKeyEvent>
+#include <QBitmap>
+#include <QPainter>
 #include <string>
 #include <iostream>
-#include "ui_clientdialog.h"
 
 using std::string;
 using std::cout;
