@@ -17,13 +17,14 @@
 #include <iostream>
 
 #include "clientdialog.h"
-#include "login.h"
 #include "registerin.h"
 #include "instruction.h"
 #include "error.h"
 #include "regerror.h"
 #include "error_nn.h"
 #include "error_no.h"
+#include "login.h"
+#include "const.h"
 
 using std::string;
 using std::cout;

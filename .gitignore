@@ -30,3 +30,9 @@ build-demo_server-Desktop_Qt_5_10_1_MinGW_32bit-Debug/ui_mainwindow.h
 build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/Makefile
 *.user
 
+build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/ui_room.h
+build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/ui_error_no.h
+build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/ui_error_nn.h
+build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_room.cpp
+build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_error_no.cpp
+build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_error_nn.cpp

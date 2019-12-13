@@ -11,6 +11,7 @@
 #include <QPainter>
 #include <string>
 #include <iostream>
+#include "const.h"
 
 using std::string;
 using std::cout;

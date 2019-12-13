@@ -2,6 +2,7 @@
 #define ROOM_H
 
 #include <QDialog>
+#include "const.h"
 
 namespace Ui {
 class room;

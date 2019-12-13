@@ -15,6 +15,7 @@
 #include "ui_mainwindow.h"
 #include "regerror.h"
 #include "room.h"
+#include "const.h"
 
 using std::string;
 using std::cout;

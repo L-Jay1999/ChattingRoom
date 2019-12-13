@@ -1,21 +1,9 @@
 ﻿#include "login.h"
 #include "ui_login.h"
 
-extern QTcpSocket* tcpClient;
-extern string _name;
-extern string _input_roomName;
-extern QString main_pic;
-
-void login::RoundRect(){                  //将窗口设为圆角
-    QBitmap bmp(this->size());
-    bmp.fill(this,0,0);
-    QPainter p(&bmp);
-    p.setPen(Qt::NoPen);
-    p.setBrush(Qt::black);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
-    setMask(bmp);
-}
+//extern QTcpSocket* tcpClient;
+//extern string _name;
+//extern string _input_roomName;
 
 login::login(QWidget *parent) :
     QDialog(parent),
@@ -63,6 +51,17 @@ login::login(QWidget *parent) :
 login::~login()
 {
     delete ui;
+}
+
+void login::RoundRect(){                  //将窗口设为圆角
+    QBitmap bmp(this->size());
+    bmp.fill(this,0,0);
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
+    setMask(bmp);
 }
 
 void login::on_exit_clicked()

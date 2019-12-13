@@ -35,7 +35,8 @@ SOURCES += \
     regerror.cpp \
     room.cpp \
     error_no.cpp \
-    error_nn.cpp
+    error_nn.cpp \
+    const.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     regerror.h \
     room.h \
     error_no.h \
-    error_nn.h
+    error_nn.h \
+    const.h
 
 FORMS += \
         mainwindow.ui \

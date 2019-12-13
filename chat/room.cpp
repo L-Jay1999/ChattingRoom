@@ -1,7 +1,7 @@
 ﻿#include "room.h"
 #include "ui_room.h"
 
-extern QString roominfo;
+//extern QString roominfo;
 
 room::room(QWidget *parent) :
     QDialog(parent),

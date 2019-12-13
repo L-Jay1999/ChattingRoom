@@ -1,11 +1,10 @@
 ﻿#include "clientdialog.h"
 #include "ui_clientdialog.h"
 
-extern string _roomName;
-extern string _name;
-extern QTcpSocket *tcpClient;
-extern QString clientinfo;
-extern QString chat_pic;
+//extern string _roomName;
+//extern string _name;
+//extern QTcpSocket *tcpClient;
+//extern QString clientinfo;
 
 clientDialog::clientDialog(QWidget *parent) :
     QDialog(parent),

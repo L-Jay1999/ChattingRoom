@@ -1,8 +1,6 @@
 ﻿#include "instruction.h"
 #include "ui_instruction.h"
 
-extern QString main_pic;
-
 instruction::instruction(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::instruction)
