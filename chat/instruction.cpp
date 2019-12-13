@@ -13,7 +13,7 @@ instruction::instruction(QWidget *parent) :
 
     ui->setupUi(this);
     //RoundRect();
-    QFont font( "华文行楷",18);
+    QFont font("华文行楷",18);
     ui->textEdit->setFont(font);
 }
 

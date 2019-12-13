@@ -14,6 +14,7 @@
 #include <QBitmap>
 #include <QPainter>
 #include <string>
+#include <sstream>
 #include <iostream>
 
 #include "clientdialog.h"
@@ -23,14 +24,12 @@
 #include "regerror.h"
 #include "error_nn.h"
 #include "error_no.h"
-<<<<<<< HEAD
 #include "room.h"
-=======
 #include "login.h"
 #include "const.h"
->>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
 
 using std::string;
+using std::stringstream;
 using std::cout;
 using std::endl;
 
@@ -55,10 +54,7 @@ public:
     regerror* new_regerror;
     error_NN*  new_nn;
     error_No* new_no;
-<<<<<<< HEAD
     room* new_room;
-=======
->>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
 
 private slots:
     void on_pushButton_clicked();
