@@ -1,9 +1,29 @@
 ﻿#include "login.h"
 #include "ui_login.h"
 
-//extern QTcpSocket* tcpClient;
-//extern string _name;
-//extern string _input_roomName;
+extern QTcpSocket* tcpClient;
+extern string _name;
+extern string _input_roomName;
+
+bool check1(QString test){
+    for(auto i = test.begin(); i != test.end(); ++ i){
+        if((*i>='0'&&*i<='9')||(*i>='a'&&*i<='z')||(*i>='A'&&*i<='Z'))
+            ;
+        else
+            return false;
+    }
+    return true;
+}
+void login::RoundRect(){                  //将窗口设为圆角
+    QBitmap bmp(this->size());
+    bmp.fill(this,0,0);
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
+    setMask(bmp);
+}
 
 login::login(QWidget *parent) :
     QDialog(parent),
@@ -83,13 +103,19 @@ void login::on_enter_clicked()
     QString msg = ui->roomName->text();
     QString msg2 = ui->roomPassword->text();
     _input_roomName = msg.toStdString();
-
-    msg = "SE" + QString::fromStdString(_name) + msg + " " + msg2;
-    QByteArray  str = msg.toUtf8();
-    str.append('\n');
-    string temp = str.toStdString();
-    cout << "[out]" << temp << endl;
-    tcpClient->write(str);
+    QString test = msg + msg2;
+    if(check1(test)==false){
+        new_regerror=new   regerror;
+        new_regerror->show();
+    }
+    else{
+        msg = "SE" + QString::fromStdString(_name) + " " + msg + " " + msg2;
+        QByteArray  str = msg.toUtf8();
+        str.append('\n');
+        string temp = str.toStdString();
+        cout << "[out]" << temp << endl;
+        tcpClient->write(str);
+    }
 }
 
 void login::on_create_clicked()
@@ -98,10 +124,11 @@ void login::on_create_clicked()
     QString msg2 = ui->roomPassword->text();
     _input_roomName = msg.toStdString();
     string password=msg2.toStdString();
-    if(_input_roomName==""){
-         new_regerror=new   regerror;
-         new_regerror->show();
-    }                                                   //判断密码是否为空
+    QString test = msg + msg2;
+    if(check1(test)==false){
+        new_regerror=new   regerror;
+        new_regerror->show();
+    }                                         //判断密码是否为空
     else{
         msg = "SC" + QString::fromStdString(_name) + " " + msg + " " + msg2;
         QByteArray  str = msg.toUtf8();
@@ -123,6 +150,4 @@ void login::on_pushButton_clicked()
     string temp = str.toStdString();
     cout << "[out]" << temp << endl;
     tcpClient->write(str);
-    new_room=new room;
-    new_room->show();
 }

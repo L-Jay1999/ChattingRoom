@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>The room name has been used</string>
+    <string>The name has been used</string>
    </property>
   </widget>
  </widget>

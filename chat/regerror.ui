@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
+    <width>1072</width>
     <height>300</height>
    </rect>
   </property>
@@ -18,12 +18,12 @@
     <rect>
      <x>10</x>
      <y>-10</y>
-     <width>511</width>
-     <height>71</height>
+     <width>641</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="text">
-    <string>The username and password can not be blank</string>
+    <string>The username and password can only be number or English</string>
    </property>
   </widget>
  </widget>

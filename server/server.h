@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <sstream>
+#include <QTcpSocket>
 #include <set>
 #include <map>
 #include "sql.h"
@@ -22,9 +23,11 @@ class Server
 private:
     SQL* sql;
     map<string, string> User;
-    //set<string> reg; // 防止重复登陆，下线时还需处理
     map<string, set<string> > Room; // RoomAndItsMembers
+public:
     map<string, string> rNP; // RoomNameAndPassword
+    map<QTcpSocket*, string> reg; // 防止重复登陆，下线时还需处理
+    set<string> online; // 当前上线的用户
 public:
     Server();
     ~Server();

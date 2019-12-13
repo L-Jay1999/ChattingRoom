@@ -16,8 +16,8 @@ using std::endl;
 
 class Controller
 {
-    Server* mySer;
 public:
+    Server* mySer;
     Controller();
     ~Controller();
     QByteArray opMsg(QByteArray, string&, string&, string&, int&);

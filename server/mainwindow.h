@@ -13,6 +13,10 @@
 #include <set>
 #include "ui_mainwindow.h"
 #include "controller.h"
+<<<<<<< HEAD
+#include "mtcpsocket.h"
+=======
+>>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
 
 using std::string;
 using std::cout;
@@ -40,8 +44,15 @@ private:
 
     //当前连接
     QTcpSocket *tcp_socket;
+<<<<<<< HEAD
+    MTcpSocket *mtcp_socket;
 
     //所有的连接都保存在这里
+    QList<MTcpSocket *>  mtcp_sockets;
+=======
+
+    //所有的连接都保存在这里
+>>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
     QList<QTcpSocket *>  tcp_sockets;
 
 protected:
@@ -49,7 +60,11 @@ protected:
     void closeEvent(QCloseEvent *event);
 private slots:
     //客户端断开时
+<<<<<<< HEAD
+    void onClientDisconnected(MTcpSocket *);
+=======
     void onClientDisconnected();
+>>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
     //客户端连接时
     void onClientConnected();
     //客户端发来数据时
