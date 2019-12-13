@@ -5,7 +5,8 @@ error_No::error_No(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::error_No)
 {
-    this->setFixedSize(400,80);
+    //this->setFixedSize(400,80);
+    this->setWindowTitle("Error");
     ui->setupUi(this);
     QFont font("Comic Sans MS",15);
     ui->label->setFont(font);

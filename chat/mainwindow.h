@@ -66,8 +66,6 @@ private slots:
     //服务端发来了信息
     void  onSocketReadyRead();
 
-    void on_quit_clicked();
-
     void on_dengLu_clicked();
 
     void on_exit_clicked();

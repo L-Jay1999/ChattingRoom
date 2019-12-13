@@ -31,8 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->dengLu->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-    ui->pushButton_3->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-    ui->quit->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");  //按钮设成圆角
+    ui->pushButton_3->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");  //按钮设成圆角
 
     ui->pushButton->setFlat(true);
     ui->dengLu->setFlat(true);
@@ -211,12 +210,8 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
 
 }
 
-void MainWindow::on_quit_clicked()
-{
-    this->close();
-}
-
 void MainWindow::on_exit_clicked()
 {
     this->close();
+    exit(0);
 }

@@ -9,27 +9,30 @@ clientDialog::clientDialog(QWidget *parent) :
     QPalette pal = this->palette();
 
     pal.setBrush(backgroundRole(), QPixmap(chat_pic));
-    //  setPalette(pal);             //加背景
+    // setPalette(pal);             //加背景
     // this->showFullScreen();
 
     ui->setupUi(this);
     ui->send->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-    ui->shuaxin->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;"); //按钮设成圆角
     QFont font("Comic Sans MS",13);
     ui->send->setFont(font);
-    ui->shuaxin->setFont(font);
     ui->pushButton->setFont(font);
     QPalette pl = ui->output->palette();
     pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
     ui->output->setPalette(pl);
     pl = ui->input->palette();
     pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
-    // QShortcut *key=new QShortcut(QKeySequence(Qt::Key_Return),this);//创建一个快捷键"Key_Return"键
+    //QShortcut *key=new QShortcut(QKeySequence(Qt::Key_Return),this);//创建一个快捷键"Key_Return"键
     //connect(key,SIGNAL(act()),this,SLOT(槽函数));//连接到指定槽函数
     ui->input->setFocusPolicy(Qt::StrongFocus);
     ui->input->setFocus();
     ui->input->installEventFilter(this);//设置完后自动调用其eventFilter函数
+
+    flush_timer = new QTimer;
+    flush_timer->setSingleShot(false);
+    flush_timer->start(2000);
+    connect(flush_timer, SIGNAL(timeout()), this, SLOT(timerTimeOut()));
 }
 
 clientDialog::~clientDialog()
@@ -88,16 +91,13 @@ bool clientDialog::eventFilter(QObject *target, QEvent *event)      //回车键�
     return QDialog::eventFilter(target,event);
 }
 
-void clientDialog::on_shuaxin_clicked()
+void clientDialog::timerTimeOut()
 {
     string msg1 = "U"+_roomName;
     QString msg = QString::fromStdString(msg1);
-    QByteArray  str = msg.toUtf8();
+    QByteArray str = msg.toUtf8();
+    //cout << "[out Dialog]" << str.toStdString() << endl;
     str.append('\n');
-    string temp = str.toStdString();
-    cout << "[out Dialog]" << temp << endl;
     tcpClient->write(str);
-    //ui->chengyuan->setText(clientinfo);
 }
-
 
