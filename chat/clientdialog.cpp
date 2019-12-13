@@ -50,6 +50,11 @@ void clientDialog::RoundRect(){                  //将窗口设为圆角
 
 void clientDialog::on_pushButton_clicked()
 {
+    string msg1 = "F" + _name + " " + _roomName;
+    QString msg = QString::fromStdString(msg1);
+    QByteArray  str = msg.toUtf8();
+    str.append('\n');
+    tcpClient->write(str);
     emit sendsignal();
     this->close();
 }

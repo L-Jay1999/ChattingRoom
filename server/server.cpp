@@ -15,7 +15,25 @@ Server::~Server()
 string Server::communication(string input, string& name, string& roomName, int& kind)
 {
     string password, roomPassword;
-    if(input[0] == 'D'){
+    if(input[0] == 'F'){
+        string input2 = input.substr(1);
+        stringstream s(input2);
+        string nname, nrome;
+        s >> nname >> nrome;
+        cout << "chu fang:"<<nname << " " << nrome << endl;
+        cout << "RS:" << Room["1"].size() << endl;
+        for(auto ii = Room.begin(); ii != Room.end(); ++ii){
+            cout << "hhh" << endl;
+            cout << "[" << ii->first << "]" << endl;
+        }
+        set<string> m = Room[nrome];
+        cout << "MS:" << m.size() << endl;
+        Room[nrome].erase(nname);
+        return "";
+
+
+    }
+    else if(input[0] == 'D'){
         string name = input.substr(1);
         online.erase(name);
         return "";
@@ -79,8 +97,8 @@ string Server::communication(string input, string& name, string& roomName, int& 
             if(!rNP.count(roomName))  // 此房间原来不存在，可以创建
             {
                 rNP[roomName] = roomPassword;
-                cout << "Room insert: " << name << endl;
                 Room[roomName].insert(name);
+                cout << "RSize:" << Room[roomName].size() << endl;
                 return "YD";
             }
             else
@@ -89,11 +107,11 @@ string Server::communication(string input, string& name, string& roomName, int& 
         if(input[1] == 'E') // 请求进入(Enter)某聊天室
         {
             kind = 3;
-            cout << "[input in communication]" << input << endl;
+            //cout << "[input in communication]" << input << endl;
             string temp = input.substr(2);
             stringstream s(temp);
             s >> name >> roomName >> roomPassword;
-            cout << "enter##" << name << "##" << roomName << "##" << roomPassword << endl; /////////////////
+            //cout << "enter##" << name << "##" << roomName << "##" << roomPassword << endl; /////////////////
             if(rNP.count(roomName) && rNP[roomName] == roomPassword)
             {
                 Room[roomName].insert(name);
@@ -141,7 +159,7 @@ string Server::communication(string input, string& name, string& roomName, int& 
                 set<string> member = i->second;
                 for(auto j = member.begin(); j != member.end(); ++ j){
                     if(online.count(*j)){
-                        cout << "*JJJJJJ" << endl; ///////////////////////////////////////
+                        //cout << "*JJJJJJ" << endl; ///////////////////////////////////////
                         ret = ret + "["+*j + "]  ";
                     }
                 }
