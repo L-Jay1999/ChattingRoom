@@ -28,4 +28,5 @@ build-demo_server-Desktop_Qt_5_10_1_MinGW_32bit-Debug/Makefile.Debug
 build-demo_server-Desktop_Qt_5_10_1_MinGW_32bit-Debug/Makefile.Release
 build-demo_server-Desktop_Qt_5_10_1_MinGW_32bit-Debug/ui_mainwindow.h
 build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/Makefile
+*.user
 
