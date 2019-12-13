@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>800</width>
     <height>300</height>
    </rect>
   </property>
@@ -31,12 +31,12 @@
     <rect>
      <x>0</x>
      <y>-20</y>
-     <width>331</width>
-     <height>61</height>
+     <width>671</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="text">
-    <string>密码错误，请重新输入</string>
+    <string>Incorrect Password.Please re-enter</string>
    </property>
   </widget>
  </widget>

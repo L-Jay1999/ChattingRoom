@@ -1,4 +1,4 @@
-﻿#ifndef CLIENTDIALOG_H
+#ifndef CLIENTDIALOG_H
 #define CLIENTDIALOG_H
 
 #include <QDialog>
@@ -33,6 +33,8 @@ private slots:
     //void on_input_textChanged();
 
     void RoundRect();
+    void on_shuaxin_clicked();
+
 public:
     Ui::clientDialog *ui;
 
@@ -42,7 +44,6 @@ protected:
 
 signals:
     void sendsignal();
-    //void act();
 };
 
 #endif // CLIENTDIALOG_H
