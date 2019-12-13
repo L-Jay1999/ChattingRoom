@@ -1,30 +1,6 @@
 ﻿#include "login.h"
 #include "ui_login.h"
 
-extern QTcpSocket* tcpClient;
-extern string _name;
-extern string _input_roomName;
-
-bool check1(QString test){
-    for(auto i = test.begin(); i != test.end(); ++ i){
-        if((*i>='0'&&*i<='9')||(*i>='a'&&*i<='z')||(*i>='A'&&*i<='Z'))
-            ;
-        else
-            return false;
-    }
-    return true;
-}
-void login::RoundRect(){                  //将窗口设为圆角
-    QBitmap bmp(this->size());
-    bmp.fill(this,0,0);
-    QPainter p(&bmp);
-    p.setPen(Qt::NoPen);
-    p.setBrush(Qt::black);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
-    setMask(bmp);
-}
-
 login::login(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::login)
@@ -71,6 +47,16 @@ login::login(QWidget *parent) :
 login::~login()
 {
     delete ui;
+}
+
+bool check1(QString test){
+    for(auto i = test.begin(); i != test.end(); ++ i){
+        if((*i>='0'&&*i<='9')||(*i>='a'&&*i<='z')||(*i>='A'&&*i<='Z'))
+            ;
+        else
+            return false;
+    }
+    return true;
 }
 
 void login::RoundRect(){                  //将窗口设为圆角

@@ -35,11 +35,8 @@ SOURCES += \
     room.cpp \
     error_no.cpp \
     error_nn.cpp \
-<<<<<<< HEAD
-    registerin.cpp
-=======
+    registerin.cpp \
     const.cpp
->>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
 
 HEADERS += \
         mainwindow.h \
@@ -52,11 +49,7 @@ HEADERS += \
     room.h \
     error_no.h \
     error_nn.h \
-<<<<<<< HEAD
-    registerin.h
-=======
     const.h
->>>>>>> 8dd672a827f25da9ed155f20ab94e82d33c0a7c4
 
 FORMS += \
         mainwindow.ui \

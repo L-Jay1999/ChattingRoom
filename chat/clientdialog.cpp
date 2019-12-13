@@ -1,11 +1,6 @@
 ﻿#include "clientdialog.h"
 #include "ui_clientdialog.h"
 
-//extern string _roomName;
-//extern string _name;
-//extern QTcpSocket *tcpClient;
-//extern QString clientinfo;
-
 clientDialog::clientDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::clientDialog)

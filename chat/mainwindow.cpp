@@ -4,47 +4,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDialog>
-//添加头文件
-#include <QLabel>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QTextEdit>
-#include <QGridLayout>
-#include <QFont>
-#include <sstream>
-#include <QBitmap>
-#include <QPainter>
-using namespace std;
-QTcpSocket  *tcpClient;
-string _name;
-string _input_name;
-string _roomName;
-string _input_roomName;
-QString  roominfo;
-QString  clientinfo;
-
-bool check(QString test){
-    for(auto i = test.begin(); i != test.end(); ++ i){
-        if((*i>='0'&&*i<='9')||(*i>='a'&&*i<='z')||(*i>='A'&&*i<='Z'))
-            ;
-        else
-            return false;
-    }
-    return true;
-}
-
-void MainWindow::RoundRect(){                  //将窗口设为圆角
-    QBitmap bmp(this->size());
-    bmp.fill(this,0,0);
-    QPainter p(&bmp);
-    p.setPen(Qt::NoPen);
-    p.setBrush(Qt::black);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
-    setMask(bmp);
-}
-
+#include "ui_clientdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -113,6 +73,16 @@ MainWindow::~MainWindow()
     delete new_nn;
     delete new_no;
     delete ui;
+}
+
+bool check(QString test){
+    for(auto i = test.begin(); i != test.end(); ++ i){
+        if((*i>='0'&&*i<='9')||(*i>='a'&&*i<='z')||(*i>='A'&&*i<='Z'))
+            ;
+        else
+            return false;
+    }
+    return true;
 }
 
 void MainWindow::RoundRect(){                  //将窗口设为圆角
