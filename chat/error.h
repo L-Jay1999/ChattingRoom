@@ -2,7 +2,6 @@
 #define ERROR_H
 
 #include <QDialog>
-#include "ui_error.h"
 
 namespace Ui {
 class error;
