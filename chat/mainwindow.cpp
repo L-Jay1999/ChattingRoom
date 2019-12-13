@@ -50,11 +50,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->exit ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
 
     ui->userPassword->setEchoMode(QLineEdit::Password);                     //隐藏密码
-   // RoundRect();
+    // RoundRect();
 
     tcpClient = new QTcpSocket; //创建socket变量
-    connect(tcpClient, SIGNAL(connected()), this, SLOT(onConnected()));
-    connect(tcpClient, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
     connect(tcpClient, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
     QString     addr = "127.0.0.1";
     quint16     port = 7777;
@@ -102,8 +100,9 @@ void MainWindow::on_dengLu_clicked()
     QString msg2 = ui->userPassword->text();
     _input_name = msg.toStdString();
     QString test = msg + msg2;
-    if(check(test)==false){
-        new_regerror=new   regerror;
+
+    if(!check(test)){
+        new_regerror=new regerror;
         new_regerror->show();
     }
     else{
@@ -123,7 +122,8 @@ void MainWindow::on_pushButton_clicked()
     _input_name = msg.toStdString();
     string password=msg2.toStdString();
     QString test = msg + msg2;
-    if(check(test)==false){
+
+    if(!check(test)){
          new_regerror=new   regerror;
          new_regerror->show();
     }                                                   //判断密码是否为空
@@ -196,7 +196,7 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             new_nn->show();
         }
         else if(str2[0] == 'U'){
-            cout << "[UserInfo]" << str2 << endl;  //////////////////////////////
+            cout << "[UserInfo]" << str2 << endl;
             new_client->ui->chengyuan->setText(str1);
             clientinfo=str1;
         }
@@ -211,40 +211,7 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
 
 }
 
-
-/*
-void MainWindow::closeEvent(QCloseEvent *event) {
-    if (tcpClient->state() == QAbstractSocket::ConnectedState)
-        tcpClient->disconnectFromHost();
-    event->accept();
-}
-*/
-void MainWindow::onConnected() {
-    //connected()信号槽函数
-    //ui->information->appendPlainText("**已连接到服务器");
-    //ui->information->appendPlainText("**peer address:" +
-    //                                 tcpClient->peerAddress().toString());
-    //ui->information->appendPlainText("**peer port:" +
-    //                                 QString::number(tcpClient->peerPort()));
-    //ui->connect->setEnabled(false);
-    //ui->disconnect->setEnabled(true);
-}
-
-void MainWindow::onDisconnected() {
-    //disConnected()信号槽函数
-    //ui->information->appendPlainText("**已断开与服务器的连接");
-    //ui->connect->setEnabled(true);
-    //ui->disconnect->setEnabled(false);
-}
-
-
-
 void MainWindow::on_quit_clicked()
-{
-    this->close();
-}
-
-void MainWindow::on_pushButton_2_clicked()
 {
     this->close();
 }

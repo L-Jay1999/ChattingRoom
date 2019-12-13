@@ -9,8 +9,8 @@ clientDialog::clientDialog(QWidget *parent) :
     QPalette pal = this->palette();
 
     pal.setBrush(backgroundRole(), QPixmap(chat_pic));
-  //  setPalette(pal);             //加背景
-   // this->showFullScreen();
+    //  setPalette(pal);             //加背景
+    // this->showFullScreen();
 
     ui->setupUi(this);
     ui->send->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
@@ -25,7 +25,7 @@ clientDialog::clientDialog(QWidget *parent) :
     ui->output->setPalette(pl);
     pl = ui->input->palette();
     pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
-   // QShortcut *key=new QShortcut(QKeySequence(Qt::Key_Return),this);//创建一个快捷键"Key_Return"键
+    // QShortcut *key=new QShortcut(QKeySequence(Qt::Key_Return),this);//创建一个快捷键"Key_Return"键
     //connect(key,SIGNAL(act()),this,SLOT(槽函数));//连接到指定槽函数
     ui->input->setFocusPolicy(Qt::StrongFocus);
     ui->input->setFocus();
@@ -76,13 +76,10 @@ void clientDialog::on_send_clicked()
 
 bool clientDialog::eventFilter(QObject *target, QEvent *event)      //回车键发送
 {
-    if(target == ui->input)
-    {
-        if(event->type() == QEvent::KeyPress)//回车键
-        {
+    if(target == ui->input){
+        if(event->type() == QEvent::KeyPress){  //回车键
              QKeyEvent *k = static_cast<QKeyEvent *>(event);
-             if(k->key() == Qt::Key_Return)
-             {
+             if(k->key() == Qt::Key_Return){
                  on_send_clicked();
                  return true;
              }
