@@ -1,14 +1,17 @@
 ﻿#include "room.h"
 #include "ui_room.h"
-
-//extern QString roominfo;
+#include <string>
+#include <iostream>
+using namespace std;
+extern QString roominfo;
 
 room::room(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::room)
 {
     ui->setupUi(this);
-  //  roominfo="sfs";
+    //roominfo="sfs";
+    cout << "room:"<< roominfo.toStdString() << endl;
     ui->info->setText(roominfo);
 }
 

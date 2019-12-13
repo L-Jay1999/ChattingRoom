@@ -100,7 +100,7 @@ void clientDialog::on_shuaxin_clicked()
     string temp = str.toStdString();
     cout << "[out Dialog]" << temp << endl;
     tcpClient->write(str);
-    ui->chengyuan->setText(clientinfo);
+    //ui->chengyuan->setText(clientinfo);
 }
 
 

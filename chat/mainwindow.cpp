@@ -4,7 +4,47 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_clientdialog.h"
+#include <QDialog>
+//添加头文件
+#include <QLabel>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QTextEdit>
+#include <QGridLayout>
+#include <QFont>
+#include <sstream>
+#include <QBitmap>
+#include <QPainter>
+using namespace std;
+QTcpSocket  *tcpClient;
+string _name;
+string _input_name;
+string _roomName;
+string _input_roomName;
+QString  roominfo;
+QString  clientinfo;
+
+bool check(QString test){
+    for(auto i = test.begin(); i != test.end(); ++ i){
+        if((*i>='0'&&*i<='9')||(*i>='a'&&*i<='z')||(*i>='A'&&*i<='Z'))
+            ;
+        else
+            return false;
+    }
+    return true;
+}
+
+void MainWindow::RoundRect(){                  //将窗口设为圆角
+    QBitmap bmp(this->size());
+    bmp.fill(this,0,0);
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(bmp.rect(),20,20,Qt::AbsoluteSize);
+    setMask(bmp);
+}
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -91,12 +131,19 @@ void MainWindow::on_dengLu_clicked()
     QString msg = ui->userName->text();
     QString msg2 = ui->userPassword->text();
     _input_name = msg.toStdString();
-    msg = "SD" + msg + " " + msg2;
-    QByteArray  str = msg.toUtf8();
-    str.append('\n');
-    string temp = str.toStdString();
-    cout << "[out]" << temp << endl;
-    tcpClient->write(str);
+    QString test = msg + msg2;
+    if(check(test)==false){
+        new_regerror=new   regerror;
+        new_regerror->show();
+    }
+    else{
+        msg = "SD" + msg + " " + msg2;
+        QByteArray  str = msg.toUtf8();
+        str.append('\n');
+        string temp = str.toStdString();
+        cout << "[out]" << temp << endl;
+        tcpClient->write(str);
+    }
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -105,8 +152,9 @@ void MainWindow::on_pushButton_clicked()
     QString msg2 = ui->userPassword->text();
     _input_name = msg.toStdString();
     string password=msg2.toStdString();
-    if(_input_name == ""||password == ""){
-         new_regerror=new regerror;
+    QString test = msg + msg2;
+    if(check(test)==false){
+         new_regerror=new   regerror;
          new_regerror->show();
     }                                                   //判断密码是否为空
     else{
@@ -151,8 +199,16 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             connect(new_client,SIGNAL(sendsignal()),new_login,SLOT(show()));
             new_client->show();
         }
-        else if(str2[0] == '['){
-            new_client->ui->output->appendPlainText(input);
+        else if(str2[0] == 'M'){
+            str2 = str2.substr(1);
+            string msgroom;
+            stringstream s(str2);
+            s >> msgroom;
+            str2 = str2.substr(msgroom.size());
+            str1 = QString::fromStdString(str2);
+            input = str1.toLatin1();
+            if(msgroom == _roomName)
+                new_client->ui->output->appendPlainText(input);
         }
         else if(str2 == "NP\n"){
             new_error=new error;
@@ -161,23 +217,25 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
         }
         else if(str2 == "NO\n"){
             cout << "already online" << endl;
-            new_nn=new error_NN;
-            new_nn->show();
-        }
-        else if(str2 == "NN\n"){
-            cout << "room name already" << endl;
             new_no=new error_No;
             new_no->show();
         }
+        else if(str2 == "NN\n"){
+            cout << "room name already" << endl;
+            new_nn=new error_NN;
+            new_nn->show();
+        }
         else if(str2[0] == 'U'){
-            cout << "[成员输出]" << str2 << endl;  //////////////////////////////
-            //new_client->ui->chengyuan->setText(QString::fromStdString((str2.substr(1))));
+            cout << "[UserInfo]" << str2 << endl;  //////////////////////////////
+            new_client->ui->chengyuan->setText(str1);
             clientinfo=str1;
         }
         else if(str2[0] == 'R'){
             //str2显示到room.ui上
             cout << str2 << endl;
             roominfo=str1;
+            new_room=new room;
+            new_room->show();
         }
     }
 

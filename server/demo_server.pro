@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     controller.cpp \
     server.cpp \
-    sql.cpp
+    sql.cpp \
+    mtcpsocket.cpp
 
 HEADERS += \
         mainwindow.h \
     controller.h \
     server.h \
-    sql.h
+    sql.h \
+    mtcpsocket.h
 
 FORMS += \
         mainwindow.ui

@@ -5,6 +5,9 @@
 
 // 头函数引用部分
 #include "mainwindow.h"
+#include <iostream>
+#include <map>
+using namespace std;
 
 // 全局变量定义部分
 map<string, set<QTcpSocket*> > rN2Soc; //roomNameToSocket;
@@ -59,14 +62,17 @@ void MainWindow::on_listen_clicked() {
 
 void MainWindow::onNewConnection() {
     tcp_socket = tcp_server->nextPendingConnection(); //创建socket
+    mtcp_socket = new MTcpSocket();
+    mtcp_socket->setTcpSocket(tcp_socket);
     tcp_sockets.push_back(tcp_socket);//将新的连接放进list 便于管理
+    mtcp_sockets.push_back(mtcp_socket);
 
     connect(tcp_socket, SIGNAL(connected()), this, SLOT(onClientConnected()));
 
     onClientConnected();//
 
-    connect(tcp_socket, SIGNAL(disconnected()),
-            this, SLOT(onClientDisconnected()));
+    connect(mtcp_socket, SIGNAL(disconnected(MTcpSocket *)),
+            this, SLOT(onClientDisconnected(MTcpSocket *)));
 
     connect(tcp_socket, SIGNAL(readyRead()),
             this, SLOT(onSocketReadyRead()));
@@ -79,20 +85,44 @@ void MainWindow::onClientConnected() {
     ui->information->appendPlainText("**peer port:" +
                                      QString::number(tcp_socket->peerPort()));
 }
-void MainWindow::onClientDisconnected() {
-    //客户端断开连接时
+
+void MainWindow::onClientDisconnected(MTcpSocket *socket) {
+
     ui->information->appendPlainText("**client socket disconnected");
+    qDebug() << "delete";
+
+    tcp_sockets.removeOne(socket->getTcpScoket());
+    mtcp_sockets.removeOne(socket);
+    ui->information->appendPlainText("**client socket disconnected");
+
     for(auto i = rN2Soc.begin(); i != rN2Soc.end(); ++ i){
         string roomName = i->first;
         set<QTcpSocket*> Soc = i->second;
-        if(Soc.count(tcp_socket))
-            Soc.erase(tcp_socket);
+        int ccount = Soc.size();
+        for(auto j = Soc.begin(); j != Soc.end(); ++j){
+            int flag = 0;
+            for(auto k = tcp_sockets.begin(); k != tcp_sockets.end(); ++k){
+                if(*j == *k)
+                    flag = 1;
+            }
+            if(!flag)
+                ccount -- ;
+        }
+        if(ccount == 0)
+            (myCon.mySer->rNP).erase(roomName);
+
     }
-    for(auto i = tcp_sockets.begin(); i != tcp_sockets.end(); ++i){
-        if(tcp_socket == *i)
-            tcp_sockets.erase(i);
+
+    map<QTcpSocket*, string> reg = myCon.mySer->reg;
+    for(auto i = reg.begin(); i != reg.end(); ++ i){
+        int flag = 0;
+        for(auto j = tcp_sockets.begin(); j != tcp_sockets.end(); ++ j){
+            if(i->first == *j)    flag = 1;
+        }
+        if(flag == 0 && myCon.mySer->online.count(i->second)){
+            myCon.mySer->online.erase(i->second);
+        }
     }
-    tcp_socket->deleteLater();
 }
 void MainWindow::onSocketReadyRead() {
     //服务端收到了信息
@@ -105,8 +135,14 @@ void MainWindow::onSocketReadyRead() {
             int kind;
             QByteArray str1 = myCon.opMsg(str, name, roomName, YorN, kind);
             ui->information->appendPlainText("[in] " + str);
+            if(kind == 4){
+                tcp_socket->write(str1);
+            }
             if(kind == 1){
                 tcp_socket->write(str1);
+                if(YorN[0] == 'Y'){
+                    myCon.mySer->reg[tcp_socket] = name;
+                }
             }
             if(kind == 3){
                 tcp_socket->write(str1);
