@@ -37,3 +37,4 @@ build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_room.cpp
 build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_error_no.cpp
 build-chat-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_error_nn.cpp
 build-demo_server-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/moc_mtcpsocket.cpp
+*.autosave
