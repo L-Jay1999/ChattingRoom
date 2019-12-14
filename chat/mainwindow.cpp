@@ -70,6 +70,7 @@ MainWindow::~MainWindow()
     delete new_nn;
     delete new_no;
     delete ui;
+    exit(0);
 }
 
 bool check(QString test){

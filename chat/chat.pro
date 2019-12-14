@@ -36,7 +36,8 @@ SOURCES += \
     error_no.cpp \
     error_nn.cpp \
     registerin.cpp \
-    const.cpp
+    const.cpp \
+    client.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     room.h \
     error_no.h \
     error_nn.h \
-    const.h
+    const.h \
+    client.h
 
 FORMS += \
         mainwindow.ui \
