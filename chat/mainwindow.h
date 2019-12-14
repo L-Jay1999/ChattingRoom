@@ -13,6 +13,7 @@
 #include <QFont>
 #include <QBitmap>
 #include <QPainter>
+#include <QMessageBox>
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -20,13 +21,10 @@
 #include "clientdialog.h"
 #include "registerin.h"
 #include "instruction.h"
-#include "error.h"
-#include "regerror.h"
-#include "error_nn.h"
-#include "error_no.h"
 #include "room.h"
 #include "login.h"
 #include "const.h"
+#include "warning.h"
 
 using std::string;
 using std::stringstream;
@@ -56,10 +54,6 @@ private:
     login* new_login;
     registerin* new_reg;
     instruction* new_ins;
-    error* new_error;
-    regerror* new_regerror;
-    error_NN*  new_nn;
-    error_No* new_no;
     room* new_room;
 
 private slots:

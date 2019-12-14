@@ -19,6 +19,7 @@ string Server::communication(string input, string& name, string& roomName, int& 
         string input2 = input.substr(1);
         stringstream s(input2);
         string nname, nrome;
+
         s >> nname >> nrome;
         cout << "chu fang:"<<nname << " " << nrome << endl;
         cout << "RS:" << Room["1"].size() << endl;
@@ -51,13 +52,11 @@ string Server::communication(string input, string& name, string& roomName, int& 
                     online.insert(name);
                     return "YL";
                 }
-                else{
+                else
                     return "NP";
-                }
             }
-            else{
+            else
                 return "NO"; // 重复登录 No Online
-            }
         }
         if(input[1] == 'Z'){ // 注(Zhu)册
             kind = 1;

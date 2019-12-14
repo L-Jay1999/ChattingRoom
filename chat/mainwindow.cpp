@@ -13,12 +13,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->label->setStyleSheet("background:transparent;border:2px solid red;");
     setAutoFillBackground(true);
     QPalette pal = this->palette();
-
     pal.setBrush(backgroundRole(), QPixmap(main_pic));
     setPalette(pal);                 //设置背景
     this->setStyleSheet("QMainWindow{border-radius:15px;}");
+
     //this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
+
     //设置标签字体，第一个参数是字体（微软雅黑），第二个是字体大小(单位为pt)，第三个是加粗（50代表正常）
     QFont font("Comic Sans MS",15);
     ui->lreg->setFont(font);
@@ -47,7 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->userName ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->userPassword ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->exit ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
-
     ui->userPassword->setEchoMode(QLineEdit::Password);                     //隐藏密码
     // RoundRect();
 
@@ -65,11 +65,8 @@ MainWindow::~MainWindow()
     delete new_login;
     delete new_reg;
     delete new_ins;
-    delete new_error;
-    delete new_regerror;
-    delete new_nn;
-    delete new_no;
     delete ui;
+    exit(0);
 }
 
 bool check(QString test){
@@ -86,6 +83,7 @@ void MainWindow::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
     bmp.fill(this,0,0);
     QPainter p(&bmp);
+
     p.setPen(Qt::NoPen);
     p.setBrush(Qt::black);
     p.setRenderHint(QPainter::Antialiasing);
@@ -100,15 +98,14 @@ void MainWindow::on_dengLu_clicked()
     _input_name = msg.toStdString();
     QString test = msg + msg2;
 
-    if(!check(test)){
-        new_regerror=new regerror;
-        new_regerror->show();
-    }
+    if(!check(test))
+        Warning::getWarning(this, VALUE);
     else{
         msg = "SD" + msg + " " + msg2;
         QByteArray  str = msg.toUtf8();
         str.append('\n');
         string temp = str.toStdString();
+
         cout << "[out]" << temp << endl;
         tcpClient->write(str);
     }
@@ -122,19 +119,17 @@ void MainWindow::on_pushButton_clicked()
     string password=msg2.toStdString();
     QString test = msg + msg2;
 
-    if(!check(test)){
-         new_regerror=new   regerror;
-         new_regerror->show();
-    }                                                   //判断密码是否为空
+    if(!check(test))
+        Warning::getWarning(this, VALUE);       //判断密码是否为空
     else{
         msg = "SZ" + msg + " " + msg2;
         QByteArray  str = msg.toUtf8();
         str.append('\n');
         string temp = str.toStdString();
+
         cout << "[out]" << temp << endl;
         tcpClient->write(str);
     }
-
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -151,6 +146,7 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
         QByteArray input = tcpClient->readLine();
         QString str1 = input;
         string str2 = str1.toStdString();
+
         cout << "[in]" << str2 << endl;
         if(str2 == "YL\n"){
             _name = _input_name;
@@ -158,7 +154,6 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             new_login=new login;
             connect(new_login,SIGNAL(sendsignal()),this,SLOT(show()));
             new_login->show();
-
         }
         else if(str2 == "YD\n"){
             _roomName = _input_roomName;
@@ -179,21 +174,12 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             if(msgroom == _roomName)
                 new_client->ui->output->appendPlainText(input);
         }
-        else if(str2 == "NP\n"){
-            new_error=new error;
-            cout << "password wrong" << endl;
-            new_error->show();
-        }
-        else if(str2 == "NO\n"){
-            cout << "already online" << endl;
-            new_no=new error_No;
-            new_no->show();
-        }
-        else if(str2 == "NN\n"){
-            cout << "room name already" << endl;
-            new_nn=new error_NN;
-            new_nn->show();
-        }
+        else if(str2 == "NP\n")
+            Warning::getWarning(this, PASSWORD);
+        else if(str2 == "NO\n")
+            Warning::getWarning(this, REPEAT);
+        else if(str2 == "NN\n")
+            Warning::getWarning(this, EXISTED);
         else if(str2[0] == 'U'){
             cout << "[UserInfo]" << str2 << endl;
             new_client->ui->chengyuan->setText(str1);
@@ -207,7 +193,6 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             new_room->show();
         }
     }
-
 }
 
 void MainWindow::on_exit_clicked()

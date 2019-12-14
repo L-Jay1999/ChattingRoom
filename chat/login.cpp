@@ -38,7 +38,6 @@ login::login(QWidget *parent) :
 
     ui->roomPassword->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->roomName->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px"); //设置显示框
-
     ui->roomPassword->setEchoMode(QLineEdit::Password);         //密码显示
     //RoundRect();
     connect(tcpClient, SIGNAL(readyRead()), this, SLOT(MainWindow::onSocketReadyRead()));
@@ -62,6 +61,7 @@ bool check1(QString test){
 void login::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
     bmp.fill(this,0,0);
+
     QPainter p(&bmp);
     p.setPen(Qt::NoPen);
     p.setBrush(Qt::black);
@@ -74,9 +74,10 @@ void login::on_exit_clicked()
 {
     QString msg = QString::fromStdString(_name);
     msg = "D" + msg;
-    QByteArray  str = msg.toUtf8();
+    QByteArray str = msg.toUtf8();
     str.append('\n');
     string temp = str.toStdString();
+
     cout << "[out]" << temp << endl;
     tcpClient->write(str);
     emit sendsignal();
@@ -90,15 +91,15 @@ void login::on_enter_clicked()
     QString msg2 = ui->roomPassword->text();
     _input_roomName = msg.toStdString();
     QString test = msg + msg2;
-    if(check1(test)==false){
-        new_regerror=new   regerror;
-        new_regerror->show();
-    }
+
+    if(!check1(test))
+        Warning::getWarning(this, VALUE);
     else{
         msg = "SE" + QString::fromStdString(_name) + " " + msg + " " + msg2;
         QByteArray  str = msg.toUtf8();
         str.append('\n');
         string temp = str.toStdString();
+
         cout << "[out]" << temp << endl;
         tcpClient->write(str);
     }
@@ -111,19 +112,18 @@ void login::on_create_clicked()
     _input_roomName = msg.toStdString();
     string password=msg2.toStdString();
     QString test = msg + msg2;
-    if(check1(test)==false){
-        new_regerror=new   regerror;
-        new_regerror->show();
-    }                                         //判断密码是否为空
+
+    if(!check1(test))
+        Warning::getWarning(this, VALUE);   //判断密码是否为空
     else{
         msg = "SC" + QString::fromStdString(_name) + " " + msg + " " + msg2;
         QByteArray  str = msg.toUtf8();
         str.append('\n');
         string temp = str.toStdString();
+
         cout << "[out]" << temp << endl;
         tcpClient->write(str);
     }
-
 }
 
 
@@ -133,7 +133,7 @@ void login::on_pushButton_clicked()
     msg = "R";
     QByteArray  str = msg.toUtf8();
     str.append('\n');
-    string temp = str.toStdString();
-    cout << "[out]" << temp << endl;
+
+    cout << "[out]" << str.toStdString() << endl;
     tcpClient->write(str);
 }

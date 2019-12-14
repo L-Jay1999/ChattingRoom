@@ -15,9 +15,11 @@ clientDialog::clientDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->send->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;"); //按钮设成圆角
+
     QFont font("Comic Sans MS",13);
     ui->send->setFont(font);
     ui->pushButton->setFont(font);
+
     QPalette pl = ui->output->palette();
     pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
     ui->output->setPalette(pl);
@@ -43,6 +45,7 @@ clientDialog::~clientDialog()
 void clientDialog::RoundRect(){                  //将窗口设为圆角
     QBitmap bmp(this->size());
     bmp.fill(this,0,0);
+
     QPainter p(&bmp);
     p.setPen(Qt::NoPen);
     p.setBrush(Qt::black);
@@ -56,6 +59,7 @@ void clientDialog::on_pushButton_clicked()
     string msg1 = "F" + _name + " " + _roomName;
     QString msg = QString::fromStdString(msg1);
     QByteArray  str = msg.toUtf8();
+
     str.append('\n');
     tcpClient->write(str);
     emit sendsignal();
@@ -68,12 +72,13 @@ void clientDialog::on_send_clicked()
     QString in = ui->input ->toPlainText();
     ui->input->clear();
     ui->input->setFocus();
+
     string msg1 = "M" + _name + " " + _roomName + " " + in.toStdString();
     QString msg = QString::fromStdString(msg1);
     QByteArray  str = msg.toUtf8();
+
     str.append('\n');
-    string temp = str.toStdString();
-    cout << "[out Dialog]" << temp << endl;
+    cout << "[out Dialog]" << str.toStdString() <<endl;
     tcpClient->write(str);
 }
 
@@ -97,6 +102,7 @@ void clientDialog::timerTimeOut()
     QString msg = QString::fromStdString(msg1);
     QByteArray str = msg.toUtf8();
     //cout << "[out Dialog]" << str.toStdString() << endl;
+
     str.append('\n');
     tcpClient->write(str);
 }
