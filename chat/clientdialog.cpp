@@ -56,6 +56,8 @@ void clientDialog::RoundRect(){                  //将窗口设为圆角
 
 void clientDialog::on_pushButton_clicked()
 {
+    flush_timer->stop();
+
     string msg1 = "F" + _name + " " + _roomName;
     QString msg = QString::fromStdString(msg1);
     QByteArray  str = msg.toUtf8();

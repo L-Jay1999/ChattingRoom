@@ -29,8 +29,6 @@ class clientDialog : public QDialog
 public:
     explicit clientDialog(QWidget *parent = nullptr);
     ~clientDialog();
-
-private:
     QTimer* flush_timer;
 
 private slots:

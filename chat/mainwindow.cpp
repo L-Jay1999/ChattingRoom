@@ -162,6 +162,7 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             new_client=new clientDialog;
             connect(new_client,SIGNAL(sendsignal()),new_login,SLOT(show()));
             new_client->show();
+            new_client->flush_timer->start();
         }
         else if(str2[0] == 'M'){
             str2 = str2.substr(1);

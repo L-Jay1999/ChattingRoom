@@ -20,6 +20,7 @@ const QString SQL::CREATE_TABLE_USER =
         "(\
           ID varchar(20) not null primary key,\
           Code varchar(20) not null\
+          foreign key(Room) references room(ID) on delete cascade on update cascade\
          )default charset = utf8";*/
 
 const QString SQL::CREATE_TABLE_RECORD =
@@ -29,8 +30,7 @@ const QString SQL::CREATE_TABLE_RECORD =
           Room varchar(20) not null,\
           Msg varchar(50),\
           Date datetime,\
-          foreign key(ID) references user(ID) on delete cascade on update cascade,\
-          foreign key(Room) references room(ID) on delete cascade on update cascade\
+          foreign key(ID) references user(ID) on delete cascade on update cascade\
          )default charset = utf8";
 
 
