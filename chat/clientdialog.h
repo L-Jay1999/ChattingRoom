@@ -1,13 +1,18 @@
-﻿#ifndef CLIENTDIALOG_H
+#ifndef CLIENTDIALOG_H
 #define CLIENTDIALOG_H
 
 #include <QDialog>
 #include <QLabel>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QShortcut>
+#include <QKeyEvent>
+#include <QBitmap>
+#include <QPainter>
+#include <QTimer>
 #include <string>
 #include <iostream>
-#include "ui_clientdialog.h"
+#include "const.h"
 
 using std::string;
 using std::cout;
@@ -24,16 +29,16 @@ class clientDialog : public QDialog
 public:
     explicit clientDialog(QWidget *parent = nullptr);
     ~clientDialog();
+    QTimer* flush_timer;
 
 private slots:
     void on_pushButton_clicked();
 
     void on_send_clicked();
 
-    //void on_input_textChanged();
-
     void RoundRect();
-    void on_shuaxin_clicked();
+
+    void timerTimeOut();
 
 public:
     Ui::clientDialog *ui;

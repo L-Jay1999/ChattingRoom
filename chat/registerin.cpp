@@ -1,4 +1,5 @@
 ﻿#include "registerin.h"
+#include "ui_registerin.h"
 
 registerin::registerin(QWidget *parent) :
     QDialog(parent),
@@ -14,8 +15,8 @@ registerin::~registerin()
 
 void registerin::on_pushButton_clicked()
 {
-        emit sendsignal();
-        this->close();
+    emit sendsignal();
+    this->close();
 }
 
 void registerin::on_pushButton_2_clicked()

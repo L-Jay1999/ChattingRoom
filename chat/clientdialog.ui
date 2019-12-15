@@ -13,25 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="shuaxin">
-   <property name="geometry">
-    <rect>
-     <x>570</x>
-     <y>490</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>75</width>
-     <height>23</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>refresh</string>
-   </property>
-  </widget>
   <widget class="QTextEdit" name="chengyuan">
    <property name="geometry">
     <rect>
@@ -40,19 +21,6 @@
      <width>181</width>
      <height>431</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>511</x>
-     <y>-9</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="output">
@@ -69,25 +37,6 @@
      <width>16777215</width>
      <height>301</height>
     </size>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>21</x>
-     <y>265</y>
-     <width>469</width>
-     <height>12</height>
-    </rect>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>16777215</width>
-     <height>12</height>
-    </size>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QTextEdit" name="input">
@@ -110,9 +59,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>490</y>
-     <width>75</width>
-     <height>23</height>
+     <y>482</y>
+     <width>121</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="maximumSize">
@@ -124,14 +73,20 @@
    <property name="text">
     <string>exit</string>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>30</height>
+    </size>
+   </property>
   </widget>
   <widget class="QPushButton" name="send">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>490</y>
-     <width>75</width>
-     <height>23</height>
+     <x>404</x>
+     <y>480</y>
+     <width>91</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="maximumSize">
@@ -143,15 +98,13 @@
    <property name="text">
     <string>send</string>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>20</height>
+    </size>
+   </property>
   </widget>
-  <zorder>chengyuan</zorder>
-  <zorder>label_2</zorder>
-  <zorder>output</zorder>
-  <zorder>label</zorder>
-  <zorder>input</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>send</zorder>
-  <zorder>shuaxin</zorder>
  </widget>
  <resources/>
  <connections/>

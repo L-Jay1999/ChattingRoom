@@ -2,6 +2,12 @@
 #define ROOM_H
 
 #include <QDialog>
+#include <string>
+#include <iostream>
+#include "const.h"
+
+using std::cout;
+using std::endl;
 
 namespace Ui {
 class room;
