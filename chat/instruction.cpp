@@ -5,14 +5,17 @@ instruction::instruction(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::instruction)
 {
+    /*设置背景*/
     setAutoFillBackground(true);
 
     QPalette pal = this->palette();
     pal.setBrush(backgroundRole(), QPixmap(main_pic));
-    setPalette(pal);                 //设置背景
+    setPalette(pal);
 
     ui->setupUi(this);
     //RoundRect();
+
+    /*设置字体*/
     QFont font("华文行楷",18);
     ui->textEdit->setFont(font);
 }
@@ -34,6 +37,7 @@ void instruction::RoundRect(){                  //将窗口设为圆角
     setMask(bmp);
 }
 
+/*点击exit按钮，关闭使用说明界面，返回用户登录界面*/
 void instruction::on_pushButton_clicked()
 {
     emit sendsignal();

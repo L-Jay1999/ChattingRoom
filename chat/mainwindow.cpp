@@ -1,6 +1,4 @@
-﻿/*1. 删除registerin界面，注册和登录的用户名密码输入都在mainwindow内输入，出错弹出警告框。
- *
- */
+﻿/*1. 删除registerin界面，注册和登录的用户名密码输入都在mainwindow内输入，出错弹出警告框。*/
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -11,16 +9,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //ui->label->setStyleSheet("background:transparent;border:2px solid red;");
+      /*设置背景*/
     setAutoFillBackground(true);
     QPalette pal = this->palette();
     pal.setBrush(backgroundRole(), QPixmap(main_pic));
-    setPalette(pal);                 //设置背景
+    setPalette(pal);
     this->setStyleSheet("QMainWindow{border-radius:15px;}");
 
     //this->setWindowFlags(Qt::FramelessWindowHint);   //设置无边框窗口
     ui->setupUi(this);
 
-    //设置标签字体，第一个参数是字体（微软雅黑），第二个是字体大小(单位为pt)，第三个是加粗（50代表正常）
+    /*设置标签字体，第一个参数是字体（微软雅黑），第二个是字体大小(单位为pt)*/
     QFont font("Comic Sans MS",15);
     ui->lreg->setFont(font);
     ui->llog->setFont(font);
@@ -28,26 +27,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->luse->setFont(font);
     ui->lins->setFont(font);
     QFont nfont("Comic Sans MS",13);
-    ui->exit->setFont(nfont);//设置字体
+    ui->exit->setFont(nfont);
 
+    /*按钮设成圆角*/
     ui->pushButton->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
     ui->dengLu->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
-    ui->pushButton_3->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");  //按钮设成圆角
+    ui->pushButton_3->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px;");
+    ui->userName ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
+    ui->userPassword ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
+    ui->exit ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
 
+     /*按钮设成透明*/
     ui->pushButton->setFlat(true);
     ui->dengLu->setFlat(true);
-    ui->pushButton_3->setFlat(true);                     //按钮设成透明
+    ui->pushButton_3->setFlat(true);
 
+    /*设置按钮图案*/
     QString sheet1 = "border-image: url(" + button1_pic + ");";
     QString sheet2 = "border-image: url(" + button2_pic + ");";
     QString sheet3 = "border-image: url(" + button4_pic + ");";
     ui->pushButton->setStyleSheet(sheet1);
     ui->pushButton_3->setStyleSheet(sheet2);
-    ui->dengLu->setStyleSheet(sheet3);           //设置按钮图案
+    ui->dengLu->setStyleSheet(sheet3);
 
-    ui->userName ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
-    ui->userPassword ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
-    ui->exit ->setStyleSheet("border:2px groove gray;border-radius:10px;padding:2px 4px");
     ui->userPassword->setEchoMode(QLineEdit::Password);                     //隐藏密码
     // RoundRect();
 
@@ -91,6 +93,7 @@ void MainWindow::RoundRect(){                  //将窗口设为圆角
     setMask(bmp);
 }
 
+/*点击login按钮，注册新用户，跳转到聊天室登录界面*/
 void MainWindow::on_dengLu_clicked()
 {
     QString msg = ui->userName->text();
@@ -107,10 +110,11 @@ void MainWindow::on_dengLu_clicked()
         string temp = str.toStdString();
 
         cout << "[out]" << temp << endl;
-        tcpClient->write(str);
+        tcpClient->write(str);            //向服务器发送用户登录请求
     }
 }
 
+/*点击register按钮，用户登录，跳转到聊天室登录界面*/
 void MainWindow::on_pushButton_clicked()
 {
     QString msg = ui->userName->text();
@@ -128,10 +132,11 @@ void MainWindow::on_pushButton_clicked()
         string temp = str.toStdString();
 
         cout << "[out]" << temp << endl;
-        tcpClient->write(str);
+        tcpClient->write(str);                           //向服务器发送注册请求
     }
 }
 
+/*点击instruction 按钮，跳转到使用说明界面*/
 void MainWindow::on_pushButton_3_clicked()
 {
     this->hide();
@@ -148,14 +153,14 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
         string str2 = str1.toStdString();
 
         cout << "[in]" << str2 << endl;
-        if(str2 == "YL\n"){
+        if(str2 == "YL\n"){//服务器返回确认注册消息，跳转到聊天室登录界面
             _name = _input_name;
             this->hide();
             new_login=new login;
             connect(new_login,SIGNAL(sendsignal()),this,SLOT(show()));
             new_login->show();
         }
-        else if(str2 == "YD\n"){
+        else if(str2 == "YD\n"){  //服务器返回确认登录消息，跳转到聊天室登录界面
             _roomName = _input_roomName;
             this->hide();
             new_login->hide();
@@ -175,18 +180,19 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
             if(msgroom == _roomName)
                 new_client->ui->output->appendPlainText(input);
         }
+         /*服务器返回错误信息，显示错误提示窗口*/
         else if(str2 == "NP\n")
             Warning::getWarning(this, PASSWORD);
         else if(str2 == "NO\n")
             Warning::getWarning(this, REPEAT);
         else if(str2 == "NN\n")
             Warning::getWarning(this, EXISTED);
-        else if(str2[0] == 'U'){
+        else if(str2[0] == 'U'){                     /*显示服务器返回的当前聊天室成员信息*/
             cout << "[UserInfo]" << str2 << endl;
             new_client->ui->chengyuan->setText(str1);
             clientinfo=str1;
         }
-        else if(str2[0] == 'R'){
+        else if(str2[0] == 'R'){               /*服务器返回的聊天室信息，打开聊天室信息界面*/
             //str2显示到room.ui上
             cout << str2 << endl;
             roominfo=str1;
@@ -196,6 +202,7 @@ void MainWindow::onSocketReadyRead() {                 //聊天 收消息
     }
 }
 
+/*点击exit按钮，关闭当前客户端*/
 void MainWindow::on_exit_clicked()
 {
     this->close();
