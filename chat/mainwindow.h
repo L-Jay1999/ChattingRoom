@@ -58,7 +58,7 @@ private:
 
 private slots:
     //服务端发来了信息
-    void  onSocketReadyRead();
+    void onSocketReadyRead();
 
     void on_dengLu_clicked();
 

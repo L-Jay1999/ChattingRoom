@@ -53,7 +53,6 @@ protected:
     void closeEvent(QCloseEvent *event);
 private slots:
     //客户端断开时
-
     void onClientDisconnected(MTcpSocket *);
     //客户端连接时
     void onClientConnected();
