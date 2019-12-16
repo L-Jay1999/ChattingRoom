@@ -65,7 +65,6 @@ MainWindow::~MainWindow()
     delete tcpClient;
     delete new_client;
     delete new_login;
-    delete new_reg;
     delete new_ins;
     delete ui;
     exit(0);
